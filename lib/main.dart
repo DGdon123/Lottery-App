@@ -16,6 +16,7 @@ import 'cart_provider.dart';
 import 'checkout.dart';
 import 'dealer.dart';
 
+import 'details.dart';
 import 'history.dart';
 import 'invoice.dart';
 import 'orderdetails.dart';
@@ -74,6 +75,12 @@ class MyApp extends StatelessWidget {
             GetPage(
               name: '/third3',
               page: () => const History(),
+              transitionDuration: const Duration(milliseconds: 600),
+              transition: Transition.fadeIn,
+            ),
+            GetPage(
+              name: '/third4',
+              page: () => const Details(),
               transitionDuration: const Duration(milliseconds: 600),
               transition: Transition.fadeIn,
             ),

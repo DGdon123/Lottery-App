@@ -1,5 +1,4 @@
 import 'package:ecommerce/dealer.dart';
-import 'package:ecommerce/help.dart';
 import 'package:ecommerce/history.dart';
 import 'package:ecommerce/profile.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +10,6 @@ class BottomNavController extends GetxController {
   final List<Widget> screens = [
     const FourthScreen(),
     const History(),
-    const EighthScreen(),
     const FourthRoute(),
   ];
 

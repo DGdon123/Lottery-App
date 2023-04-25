@@ -416,7 +416,7 @@ class _FourthScreenState extends State<FourthScreen> {
         centerTitle: true,
         automaticallyImplyLeading: false,
         elevation: 0,
-        backgroundColor: const Color(0xFF6BA444).withOpacity(0.65),
+        backgroundColor: const Color(0xFF6BA444),
         //  backgroundColor: const Color(0xFF6BA444),
       ),
       backgroundColor: const Color.fromARGB(255, 255, 255, 255),
@@ -443,7 +443,7 @@ class _FourthScreenState extends State<FourthScreen> {
                             Column(
                               children: [
                                 Container(
-                                  height: height / 23,
+                                  height: height / 55,
                                 ),
                                 Row(children: [
                                   Container(
@@ -518,7 +518,7 @@ class _FourthScreenState extends State<FourthScreen> {
                                   ],
                                 ),
                                 Container(
-                                  height: height / 50,
+                                  height: height / 45,
                                 ),
                                 Row(children: [
                                   Container(
@@ -592,7 +592,7 @@ class _FourthScreenState extends State<FourthScreen> {
                                   ],
                                 ),
                                 Container(
-                                  height: height / 50,
+                                  height: height / 45,
                                 ),
                                 Row(children: [
                                   Container(
@@ -666,7 +666,7 @@ class _FourthScreenState extends State<FourthScreen> {
                                   ],
                                 ),
                                 Container(
-                                  height: height / 50,
+                                  height: height / 45,
                                 ),
                                 Row(children: [
                                   Container(
@@ -752,14 +752,14 @@ class _FourthScreenState extends State<FourthScreen> {
                                     height: height * 0.075,
                                     width: width * 0.91,
                                     child: MaterialButton(
-                                      color: const Color(
-                                          0xFF6BA444), //background color of button
+                                      color: const Color(0xFF6BA444).withOpacity(
+                                          0.75), //background color of button
                                       shape: RoundedRectangleBorder(
                                         //to set border radius to button
                                         borderRadius: BorderRadius.circular(5),
                                       ),
                                       child: Text(
-                                        "Generate Lottery",
+                                        "Submit",
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
                                           height: height * 0.001,
@@ -779,7 +779,8 @@ class _FourthScreenState extends State<FourthScreen> {
                                             context: context,
                                             type: QuickAlertType.error,
                                             confirmBtnColor:
-                                                const Color(0xFF6BA444),
+                                                const Color(0xFF6BA444)
+                                                    .withOpacity(0.75),
                                             title: 'Error',
                                             text:
                                                 'Please fill up all the fields!!!',

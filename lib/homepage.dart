@@ -55,9 +55,9 @@ class HomePage extends StatelessWidget {
               color: const Color(0xFF222222).withOpacity(0.7),
               activeColor: const Color(0xFFFFFFFF),
               iconSize: 24,
-              tabBackgroundColor: const Color(0xFFFCD62D).withOpacity(0.85),
+              tabBackgroundColor: const Color(0xFF6BA444).withOpacity(0.85),
               padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 10),
-              tabMargin: const EdgeInsets.only(left: 10, right: 10),
+              tabMargin: const EdgeInsets.only(left: 20, right: 20),
               tabs: const [
                 GButton(
                   icon: Icons.home,
@@ -66,10 +66,6 @@ class HomePage extends StatelessWidget {
                 GButton(
                   icon: Icons.history_rounded,
                   text: 'History',
-                ),
-                GButton(
-                  icon: Icons.help_outlined,
-                  text: 'Help',
                 ),
                 GButton(
                   icon: Icons.person,

@@ -12,7 +12,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 import 'package:ecommerce/models/profile.dart';
+import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:quickalert/models/quickalert_type.dart';
+import 'package:quickalert/widgets/quickalert_dialog.dart';
 
 import 'models/accounting.dart';
 
@@ -132,696 +135,467 @@ class _FourthRouteState extends State<FourthRoute> {
             color: Color(0xFFFFFFFF), //change color on your need
           ),
           elevation: 0,
+          automaticallyImplyLeading: false,
+          actions: <Widget>[
+            Padding(
+              padding: const EdgeInsets.only(bottom: 4),
+              child: IconButton(
+                icon: const Icon(
+                  Icons.logout_rounded,
+                  size: 22,
+                ),
+                tooltip: 'Open shopping cart',
+                onPressed: () {
+                  QuickAlert.show(
+                    context: context,
+                    onConfirmBtnTap: () {
+                      Get.toNamed('/third');
+                    },
+                    type: QuickAlertType.confirm,
+                    text: 'Do you want to logout',
+                    confirmBtnText: 'Yes',
+                    cancelBtnText: 'No',
+                    confirmBtnColor: Colors.green,
+                  );
+                },
+              ),
+            ),
+          ],
         ),
         backgroundColor: const Color.fromARGB(255, 255, 255, 255),
-        drawer: Drawer(
-          width: MediaQuery.of(context).size.width * 0.57,
-          backgroundColor: const Color(0xFFFFFFFF),
-          // ignore: sort_child_properties_last
-          child: ListView(
-            children: [
-              UiHelper.verticalSpace(vspace: Spacing.large),
-              ListTile(
-                  leading: SizedBox(
-                    height: 120,
-                    child: Container(
-                      width: 56,
-                      decoration: BoxDecoration(
-                        color: const Color(0xFF6BA444),
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(8.0)),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.withOpacity(0.2),
-                            offset: const Offset(0, 8),
-                            blurRadius: 10.0,
-                            spreadRadius: 0.0,
-                          ), //BoxShadow
-                          //BoxShadow
-                        ],
-                      ),
-                      child: Column(
-                        children: [
-                          UiHelper.verticalSpace(vspace: Spacing.xsmall),
-                          const Icon(
-                            Icons.account_circle,
-                            color: Color(0xFFFFFFFF),
-                            size: 45,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  title: Text(profileModel.name ?? ' ',
-                      style: const TextStyle(
-                          color: Color(0xFF6BA444),
-                          fontFamily: "Cabin",
-                          fontSize: 22,
-                          fontWeight: FontWeight.w600)),
-                  onTap: (() {
-                    Navigator.pushNamed(context, '/eighth');
-                  })),
-              UiHelper.verticalSpace(vspace: Spacing.large),
-              const Divider(
-                thickness: 1.2, // thickness of the line
-                indent: 0, // empty space to the leading edge of divider.
-                endIndent:
-                    0, // empty space to the trailing edge of the divider.
-                color: Color(
-                    0xFF6BA444), // The color to use when painting the line.
-                height: 0, // The divider's height extent.
-              ),
-              ListTile(
-                  leading: const Icon(
-                    Icons.home,
-                    color: Color(0xFF6BA444),
-                    size: 26,
-                  ),
-                  title: const Text('Home',
-                      style: TextStyle(
-                          color: Color(0xFF6BA444),
-                          fontFamily: "Cabin",
-                          fontSize: 17,
-                          letterSpacing: 1,
-                          fontWeight: FontWeight.w600)),
-                  onTap: (() {
-                    Navigator.pushNamed(context, '/fourth');
-                  })),
-              ListTile(
-                  leading: const Icon(
-                    Icons.inventory,
-                    color: Color(0xFF6BA444),
-                    size: 26,
-                  ),
-                  title: const Text('Orders',
-                      style: TextStyle(
-                          color: Color(0xFF6BA444),
-                          fontFamily: "Cabin",
-                          fontSize: 17,
-                          letterSpacing: 1,
-                          fontWeight: FontWeight.w600)),
-                  onTap: (() {
-                    Navigator.pushNamed(context, '/seventh');
-                  })),
-              const Divider(
-                thickness: 1.2, // thickness of the line
-                indent: 0, // empty space to the leading edge of divider.
-                endIndent:
-                    0, // empty space to the trailing edge of the divider.
-                color: Color(
-                    0xFF6BA444), // The color to use when painting the line.
-                height: 0.001, // The divider's height extent.
-              ),
-              ListTile(
-                  leading: const Icon(
-                    Icons.shopping_cart_rounded,
-                    color: Color(0xFF6BA444),
-                    size: 26,
-                  ),
-                  title: const Text('Cart',
-                      style: TextStyle(
-                          color: Color(0xFF6BA444),
-                          fontFamily: "Cabin",
-                          fontSize: 17,
-                          letterSpacing: 1,
-                          fontWeight: FontWeight.w600)),
-                  onTap: (() {
-                    Navigator.pushNamed(context, '/eleventh');
-                  })),
-              ListTile(
-                  leading: const Icon(
-                    Icons.help_outlined,
-                    color: Color(0xFF6BA444),
-                    size: 26,
-                  ),
-                  title: const Text('Help',
-                      style: TextStyle(
-                          color: Color(0xFF6BA444),
-                          fontFamily: "Cabin",
-                          fontSize: 17,
-                          letterSpacing: 1,
-                          fontWeight: FontWeight.w600)),
-                  onTap: (() {
-                    Navigator.pushNamed(context, '/tenth');
-                  })),
-              const Divider(
-                thickness: 1.2, // thickness of the line
-                indent: 0, // empty space to the leading edge of divider.
-                endIndent:
-                    0, // empty space to the trailing edge of the divider.
-                color: Color(
-                    0xFF6BA444), // The color to use when painting the line.
-                height: 0.001, // The divider's height extent.
-              ),
-            ],
-          ),
-        ),
         body: Center(
-          child: circular
-              ? (Container(
-                  child: LoadingAnimationWidget.discreteCircle(
-                    secondRingColor: const Color(0xFF6BA444),
-                    thirdRingColor: const Color(0xFFFCD62D),
-                    size: UiHelper.displayWidth(context) * 0.08,
-                    color: const Color(0xFFFCD62D),
-                  ),
-                ))
-              : Column(
-                  children: [
+            child: circular
+                ? (Container(
+                    child: LoadingAnimationWidget.discreteCircle(
+                      secondRingColor: const Color(0xFF6BA444),
+                      thirdRingColor: const Color(0xFFFCD62D),
+                      size: UiHelper.displayWidth(context) * 0.08,
+                      color: const Color(0xFFFCD62D),
+                    ),
+                  ))
+                : Column(children: [
                     Expanded(
-                      child: SingleChildScrollView(
-                        child: SizedBox(
-                          height: UiHelper.displayHeight(context) * 0.85,
-                          width: UiHelper.displayWidth(context) * 1,
-                          child: CustomPaint(
-                            painter: CurvePainter(),
-                            child: Column(
-                              children: [
-                                Container(
-                                  margin: const EdgeInsets.only(top: 16),
-                                  child: Text(
-                                    hell.companyName,
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        fontFamily: "Mulish",
-                                        fontWeight: FontWeight.w600,
-                                        color: const Color(0xFFFFFFFF),
-                                        fontSize: width * 0.080),
-                                  ),
-                                ),
-                                Container(
-                                  margin: const EdgeInsets.only(top: 22),
-                                  child: Text(
-                                    profileModel.name ?? ' ',
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        fontFamily: "Mulish",
-                                        fontWeight: FontWeight.w400,
-                                        color: const Color(0xFFFFFFFF),
-                                        fontSize: width * 0.055),
-                                  ),
-                                ),
-                                UiHelper.verticalSpace(vspace: Spacing.large),
-                                Container(
-                                  height: 437,
-                                  width: UiHelper.displayWidth(context) * 0.83,
-                                  decoration: BoxDecoration(
-                                    color: const Color(0xFFFFFFFF),
-                                    borderRadius: const BorderRadius.all(
-                                        Radius.circular(10.0)),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.grey.withOpacity(0.2),
-                                        offset: const Offset(0, 8),
-                                        blurRadius: 10.0,
-                                        spreadRadius: 0.0,
-                                      ), //BoxShadow
-                                      //BoxShadow
-                                    ],
-                                  ),
+                        child: SingleChildScrollView(
+                            child: SizedBox(
+                                height: UiHelper.displayHeight(context) * 0.85,
+                                width: UiHelper.displayWidth(context) * 1,
+                                child: CustomPaint(
+                                  painter: CurvePainter(),
                                   child: Column(
                                     children: [
-                                      UiHelper.verticalSpace(
-                                          vspace: Spacing.medium),
-                                      Row(
-                                        children: [
-                                          UiHelper.horizontaSpace(
-                                              hspace: Spacing.large),
-                                          Align(
-                                              alignment: Alignment.bottomLeft,
-                                              child: Icon(
-                                                Icons.location_on_rounded,
-                                                size: UiHelper.displayWidth(
-                                                        context) *
-                                                    0.065,
-                                                color: const Color(0xFF6BA444),
-                                              )),
-                                          UiHelper.horizontaSpace(
-                                              hspace: Spacing.medium),
-                                          Align(
-                                            alignment: Alignment.topLeft,
-                                            child: Text(
-                                              'Address',
-                                              textAlign: TextAlign.center,
-                                              style: TextStyle(
-                                                  letterSpacing: 0.3,
-                                                  fontFamily: "KumbhSans",
-                                                  fontWeight: FontWeight.w600,
-                                                  color:
-                                                      const Color(0xFF222222),
-                                                  fontSize:
-                                                      UiHelper.displayWidth(
-                                                              context) *
-                                                          0.043),
-                                            ),
-                                          ),
-                                        ],
+                                      SizedBox(
+                                        height:
+                                            UiHelper.displayHeight(context) *
+                                                0.001,
                                       ),
-                                      Column(
-                                        children: [
-                                          Row(
-                                            children: [
-                                              UiHelper.horizontaSpace(
-                                                  hspace: Spacing.xxlarge),
-                                              UiHelper.horizontaSpace(
-                                                  hspace: Spacing.xlarge),
-                                              UiHelper.horizontaSpace(
-                                                  hspace: Spacing.xsmall),
-                                              Align(
-                                                child: Container(
-                                                  alignment:
-                                                      Alignment.bottomLeft,
-                                                  width: width * 0.65,
-                                                  height: height * 0.03,
-                                                  child: Text(
-                                                    hell.address ?? ' ',
-                                                    textAlign: TextAlign.center,
-                                                    style: TextStyle(
-                                                        letterSpacing: 0.1,
-                                                        fontFamily:
-                                                            "SignikaNegative-Bold",
-                                                        fontWeight:
-                                                            FontWeight.w400,
-                                                        color: const Color(
-                                                            0xFFA6AEB0),
-                                                        fontSize: UiHelper
-                                                                .displayWidth(
-                                                                    context) *
-                                                            0.04),
-                                                  ),
-                                                ),
+                                      Container(
+                                        margin: const EdgeInsets.only(top: 20),
+                                        width: UiHelper.displayWidth(context) *
+                                            0.3,
+                                        height:
+                                            UiHelper.displayHeight(context) *
+                                                0.15,
+                                        decoration: const BoxDecoration(
+                                          image: DecorationImage(
+                                              image: AssetImage(
+                                                "images/logos.png",
                                               ),
-                                            ],
-                                          ),
-                                        ],
+                                              fit: BoxFit.fitWidth),
+                                          color: Color.fromARGB(
+                                              255, 255, 255, 255),
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(80)),
+                                        ),
                                       ),
                                       SizedBox(
                                         height:
                                             UiHelper.displayHeight(context) *
-                                                0.000090,
+                                                0.025,
+                                      ),
+                                      Text(
+                                        profileModel.name ?? ' ',
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                            fontFamily: "Mulish",
+                                            fontWeight: FontWeight.w600,
+                                            color: const Color(0xFFFFFFFF),
+                                            fontSize: width * 0.080),
                                       ),
                                       UiHelper.verticalSpace(
-                                          vspace: Spacing.medium),
-                                      Row(
-                                        children: [
-                                          UiHelper.horizontaSpace(
-                                              hspace: Spacing.large),
-                                          Align(
-                                              alignment: Alignment.bottomLeft,
-                                              child: Icon(
-                                                Icons.mail_rounded,
-                                                size: UiHelper.displayWidth(
-                                                        context) *
-                                                    0.065,
-                                                color: const Color(0xFF6BA444),
-                                              )),
-                                          UiHelper.horizontaSpace(
-                                              hspace: Spacing.medium),
-                                          Align(
-                                            alignment: Alignment.topLeft,
-                                            child: Text(
-                                              'Email Address',
-                                              textAlign: TextAlign.center,
-                                              style: TextStyle(
-                                                  letterSpacing: 0.3,
-                                                  fontFamily: "KumbhSans",
-                                                  fontWeight: FontWeight.w600,
-                                                  color:
-                                                      const Color(0xFF222222),
-                                                  fontSize:
-                                                      UiHelper.displayWidth(
-                                                              context) *
-                                                          0.043),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      Column(
-                                        children: [
-                                          Row(
-                                            children: [
-                                              UiHelper.horizontaSpace(
-                                                  hspace: Spacing.xxlarge),
-                                              UiHelper.horizontaSpace(
-                                                  hspace: Spacing.xlarge),
-                                              UiHelper.horizontaSpace(
-                                                  hspace: Spacing.xsmall),
-                                              Align(
-                                                child: Container(
-                                                  alignment:
-                                                      Alignment.bottomLeft,
-                                                  width: width * 0.65,
-                                                  height: height * 0.03,
+                                          vspace: Spacing.large),
+                                      Container(
+                                        height: 280,
+                                        width: UiHelper.displayWidth(context) *
+                                            0.83,
+                                        decoration: BoxDecoration(
+                                          color: const Color(0xFFFFFFFF),
+                                          borderRadius: const BorderRadius.all(
+                                              Radius.circular(10.0)),
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color:
+                                                  Colors.grey.withOpacity(0.2),
+                                              offset: const Offset(0, 8),
+                                              blurRadius: 10.0,
+                                              spreadRadius: 0.0,
+                                            ), //BoxShadow
+                                            //BoxShadow
+                                          ],
+                                        ),
+                                        child: Column(
+                                          children: [
+                                            UiHelper.verticalSpace(
+                                                vspace: Spacing.medium),
+                                            Row(
+                                              children: [
+                                                UiHelper.horizontaSpace(
+                                                    hspace: Spacing.large),
+                                                Align(
+                                                    alignment:
+                                                        Alignment.bottomLeft,
+                                                    child: Icon(
+                                                      Icons.location_on_rounded,
+                                                      size:
+                                                          UiHelper.displayWidth(
+                                                                  context) *
+                                                              0.065,
+                                                      color: const Color(
+                                                          0xFF6BA444),
+                                                    )),
+                                                UiHelper.horizontaSpace(
+                                                    hspace: Spacing.medium),
+                                                Align(
+                                                  alignment: Alignment.topLeft,
                                                   child: Text(
-                                                    profileModel.email ?? ' ',
+                                                    'Address',
                                                     textAlign: TextAlign.center,
                                                     style: TextStyle(
-                                                        letterSpacing: 0.1,
-                                                        fontFamily:
-                                                            "SignikaNegative-Bold",
+                                                        letterSpacing: 0.3,
+                                                        fontFamily: "KumbhSans",
                                                         fontWeight:
-                                                            FontWeight.w400,
+                                                            FontWeight.w600,
                                                         color: const Color(
-                                                            0xFFA6AEB0),
+                                                            0xFF222222),
                                                         fontSize: UiHelper
                                                                 .displayWidth(
                                                                     context) *
-                                                            0.04),
+                                                            0.043),
                                                   ),
                                                 ),
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                      SizedBox(
-                                        height:
-                                            UiHelper.displayHeight(context) *
-                                                0.000090,
-                                      ),
-                                      UiHelper.verticalSpace(
-                                          vspace: Spacing.medium),
-                                      Row(
-                                        children: [
-                                          UiHelper.horizontaSpace(
-                                              hspace: Spacing.large),
-                                          Align(
-                                              alignment: Alignment.bottomLeft,
-                                              child: Icon(
-                                                Icons.phone_rounded,
-                                                size: UiHelper.displayWidth(
-                                                        context) *
-                                                    0.065,
-                                                color: const Color(0xFF6BA444),
-                                              )),
-                                          UiHelper.horizontaSpace(
-                                              hspace: Spacing.medium),
-                                          Align(
-                                            alignment: Alignment.topLeft,
-                                            child: Text(
-                                              'Mobile Number',
-                                              textAlign: TextAlign.center,
-                                              style: TextStyle(
-                                                  letterSpacing: 0.3,
-                                                  fontFamily: "KumbhSans",
-                                                  fontWeight: FontWeight.w600,
-                                                  color:
-                                                      const Color(0xFF222222),
-                                                  fontSize:
-                                                      UiHelper.displayWidth(
-                                                              context) *
-                                                          0.043),
+                                              ],
                                             ),
-                                          ),
-                                        ],
-                                      ),
-                                      Column(
-                                        children: [
-                                          Row(
-                                            children: [
-                                              UiHelper.horizontaSpace(
-                                                  hspace: Spacing.xxlarge),
-                                              UiHelper.horizontaSpace(
-                                                  hspace: Spacing.xlarge),
-                                              UiHelper.horizontaSpace(
-                                                  hspace: Spacing.xsmall),
-                                              Align(
-                                                child: Container(
-                                                  alignment:
-                                                      Alignment.bottomLeft,
-                                                  width: width * 0.65,
-                                                  height: height * 0.03,
+                                            Column(
+                                              children: [
+                                                Row(
+                                                  children: [
+                                                    UiHelper.horizontaSpace(
+                                                        hspace:
+                                                            Spacing.xxlarge),
+                                                    UiHelper.horizontaSpace(
+                                                        hspace: Spacing.xlarge),
+                                                    UiHelper.horizontaSpace(
+                                                        hspace: Spacing.xsmall),
+                                                    Align(
+                                                      child: Container(
+                                                        alignment: Alignment
+                                                            .bottomLeft,
+                                                        width: width * 0.65,
+                                                        height: height * 0.03,
+                                                        child: Text(
+                                                          hell.address ?? ' ',
+                                                          textAlign:
+                                                              TextAlign.center,
+                                                          style: TextStyle(
+                                                              letterSpacing:
+                                                                  0.1,
+                                                              fontFamily:
+                                                                  "SignikaNegative-Bold",
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w400,
+                                                              color: const Color(
+                                                                  0xFFA6AEB0),
+                                                              fontSize: UiHelper
+                                                                      .displayWidth(
+                                                                          context) *
+                                                                  0.04),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ],
+                                            ),
+                                            SizedBox(
+                                              height: UiHelper.displayHeight(
+                                                      context) *
+                                                  0.000090,
+                                            ),
+                                            UiHelper.verticalSpace(
+                                                vspace: Spacing.medium),
+                                            Row(
+                                              children: [
+                                                UiHelper.horizontaSpace(
+                                                    hspace: Spacing.large),
+                                                Align(
+                                                    alignment:
+                                                        Alignment.bottomLeft,
+                                                    child: Icon(
+                                                      Icons.mail_rounded,
+                                                      size:
+                                                          UiHelper.displayWidth(
+                                                                  context) *
+                                                              0.065,
+                                                      color: const Color(
+                                                          0xFF6BA444),
+                                                    )),
+                                                UiHelper.horizontaSpace(
+                                                    hspace: Spacing.medium),
+                                                Align(
+                                                  alignment: Alignment.topLeft,
                                                   child: Text(
-                                                    profileModel.phone ?? ' ',
+                                                    'Email Address',
                                                     textAlign: TextAlign.center,
                                                     style: TextStyle(
-                                                        letterSpacing: 0.1,
-                                                        fontFamily:
-                                                            "SignikaNegative-Bold",
+                                                        letterSpacing: 0.3,
+                                                        fontFamily: "KumbhSans",
                                                         fontWeight:
-                                                            FontWeight.w400,
+                                                            FontWeight.w600,
                                                         color: const Color(
-                                                            0xFFA6AEB0),
+                                                            0xFF222222),
                                                         fontSize: UiHelper
                                                                 .displayWidth(
                                                                     context) *
-                                                            0.04),
+                                                            0.043),
                                                   ),
                                                 ),
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                      SizedBox(
-                                        height:
-                                            UiHelper.displayHeight(context) *
-                                                0.000090,
-                                      ),
-                                      UiHelper.verticalSpace(
-                                          vspace: Spacing.medium),
-                                      Row(
-                                        children: [
-                                          UiHelper.horizontaSpace(
-                                              hspace: Spacing.large),
-                                          Align(
-                                              alignment: Alignment.bottomLeft,
-                                              child: Icon(
-                                                Icons.wallet_rounded,
-                                                size: UiHelper.displayWidth(
-                                                        context) *
-                                                    0.065,
-                                                color: const Color(0xFF6BA444),
-                                              )),
-                                          UiHelper.horizontaSpace(
-                                              hspace: Spacing.medium),
-                                          Align(
-                                            alignment: Alignment.topLeft,
-                                            child: Text(
-                                              'Credit Balance',
-                                              textAlign: TextAlign.center,
-                                              style: TextStyle(
-                                                  letterSpacing: 0.3,
-                                                  fontFamily: "KumbhSans",
-                                                  fontWeight: FontWeight.w600,
-                                                  color:
-                                                      const Color(0xFF222222),
-                                                  fontSize:
-                                                      UiHelper.displayWidth(
-                                                              context) *
-                                                          0.043),
+                                              ],
                                             ),
-                                          ),
-                                        ],
-                                      ),
-                                      Column(
-                                        children: [
-                                          Row(
-                                            children: [
-                                              UiHelper.horizontaSpace(
-                                                  hspace: Spacing.xxlarge),
-                                              UiHelper.horizontaSpace(
-                                                  hspace: Spacing.xlarge),
-                                              UiHelper.horizontaSpace(
-                                                  hspace: Spacing.xsmall),
-                                              Align(
-                                                child: Container(
-                                                  alignment:
-                                                      Alignment.bottomLeft,
-                                                  width: width * 0.65,
-                                                  height: height * 0.03,
+                                            Column(
+                                              children: [
+                                                Row(
+                                                  children: [
+                                                    UiHelper.horizontaSpace(
+                                                        hspace:
+                                                            Spacing.xxlarge),
+                                                    UiHelper.horizontaSpace(
+                                                        hspace: Spacing.xlarge),
+                                                    UiHelper.horizontaSpace(
+                                                        hspace: Spacing.xsmall),
+                                                    Align(
+                                                      child: Container(
+                                                        alignment: Alignment
+                                                            .bottomLeft,
+                                                        width: width * 0.65,
+                                                        height: height * 0.03,
+                                                        child: Text(
+                                                          profileModel.email ??
+                                                              ' ',
+                                                          textAlign:
+                                                              TextAlign.center,
+                                                          style: TextStyle(
+                                                              letterSpacing:
+                                                                  0.1,
+                                                              fontFamily:
+                                                                  "SignikaNegative-Bold",
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w400,
+                                                              color: const Color(
+                                                                  0xFFA6AEB0),
+                                                              fontSize: UiHelper
+                                                                      .displayWidth(
+                                                                          context) *
+                                                                  0.04),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ],
+                                            ),
+                                            SizedBox(
+                                              height: UiHelper.displayHeight(
+                                                      context) *
+                                                  0.000090,
+                                            ),
+                                            UiHelper.verticalSpace(
+                                                vspace: Spacing.medium),
+                                            Row(
+                                              children: [
+                                                UiHelper.horizontaSpace(
+                                                    hspace: Spacing.large),
+                                                Align(
+                                                    alignment:
+                                                        Alignment.bottomLeft,
+                                                    child: Icon(
+                                                      Icons.phone_rounded,
+                                                      size:
+                                                          UiHelper.displayWidth(
+                                                                  context) *
+                                                              0.065,
+                                                      color: const Color(
+                                                          0xFF6BA444),
+                                                    )),
+                                                UiHelper.horizontaSpace(
+                                                    hspace: Spacing.medium),
+                                                Align(
+                                                  alignment: Alignment.topLeft,
                                                   child: Text(
-                                                    "Rs: $creditBalance",
+                                                    'Mobile Number',
                                                     textAlign: TextAlign.center,
                                                     style: TextStyle(
-                                                        letterSpacing: 0.1,
-                                                        fontFamily:
-                                                            "SignikaNegative-Bold",
+                                                        letterSpacing: 0.3,
+                                                        fontFamily: "KumbhSans",
                                                         fontWeight:
-                                                            FontWeight.w400,
+                                                            FontWeight.w600,
                                                         color: const Color(
-                                                            0xFFA6AEB0),
+                                                            0xFF222222),
                                                         fontSize: UiHelper
                                                                 .displayWidth(
                                                                     context) *
-                                                            0.04),
+                                                            0.043),
                                                   ),
                                                 ),
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                      SizedBox(
-                                        height:
-                                            UiHelper.displayHeight(context) *
-                                                0.000090,
-                                      ),
-                                      UiHelper.verticalSpace(
-                                          vspace: Spacing.medium),
-                                      Row(
-                                        children: [
-                                          UiHelper.horizontaSpace(
-                                              hspace: Spacing.large),
-                                          Align(
-                                              alignment: Alignment.bottomLeft,
-                                              child: Icon(
-                                                Icons.insights_rounded,
-                                                size: UiHelper.displayWidth(
-                                                        context) *
-                                                    0.065,
-                                                color: const Color(0xFF6BA444),
-                                              )),
-                                          UiHelper.horizontaSpace(
-                                              hspace: Spacing.medium),
-                                          Align(
-                                            alignment: Alignment.topLeft,
-                                            child: Text(
-                                              'Credit Limit',
-                                              textAlign: TextAlign.center,
-                                              style: TextStyle(
-                                                  letterSpacing: 0.3,
-                                                  fontFamily: "KumbhSans",
-                                                  fontWeight: FontWeight.w600,
-                                                  color:
-                                                      const Color(0xFF222222),
-                                                  fontSize:
-                                                      UiHelper.displayWidth(
-                                                              context) *
-                                                          0.043),
+                                              ],
                                             ),
-                                          ),
-                                        ],
-                                      ),
-                                      Column(
-                                        children: [
-                                          Row(
-                                            children: [
-                                              UiHelper.horizontaSpace(
-                                                  hspace: Spacing.xxlarge),
-                                              UiHelper.horizontaSpace(
-                                                  hspace: Spacing.xlarge),
-                                              UiHelper.horizontaSpace(
-                                                  hspace: Spacing.xsmall),
-                                              Align(
-                                                child: Container(
-                                                  alignment:
-                                                      Alignment.bottomLeft,
-                                                  width: width * 0.65,
-                                                  height: height * 0.03,
+                                            Column(
+                                              children: [
+                                                Row(
+                                                  children: [
+                                                    UiHelper.horizontaSpace(
+                                                        hspace:
+                                                            Spacing.xxlarge),
+                                                    UiHelper.horizontaSpace(
+                                                        hspace: Spacing.xlarge),
+                                                    UiHelper.horizontaSpace(
+                                                        hspace: Spacing.xsmall),
+                                                    Align(
+                                                      child: Container(
+                                                        alignment: Alignment
+                                                            .bottomLeft,
+                                                        width: width * 0.65,
+                                                        height: height * 0.03,
+                                                        child: Text(
+                                                          profileModel.phone ??
+                                                              ' ',
+                                                          textAlign:
+                                                              TextAlign.center,
+                                                          style: TextStyle(
+                                                              letterSpacing:
+                                                                  0.1,
+                                                              fontFamily:
+                                                                  "SignikaNegative-Bold",
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w400,
+                                                              color: const Color(
+                                                                  0xFFA6AEB0),
+                                                              fontSize: UiHelper
+                                                                      .displayWidth(
+                                                                          context) *
+                                                                  0.04),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ],
+                                            ),
+                                            SizedBox(
+                                              height: UiHelper.displayHeight(
+                                                      context) *
+                                                  0.000090,
+                                            ),
+                                            UiHelper.verticalSpace(
+                                                vspace: Spacing.medium),
+                                            Row(
+                                              children: [
+                                                UiHelper.horizontaSpace(
+                                                    hspace: Spacing.large),
+                                                Align(
+                                                    alignment:
+                                                        Alignment.bottomLeft,
+                                                    child: Icon(
+                                                      Icons.wallet_rounded,
+                                                      size:
+                                                          UiHelper.displayWidth(
+                                                                  context) *
+                                                              0.065,
+                                                      color: const Color(
+                                                          0xFF6BA444),
+                                                    )),
+                                                UiHelper.horizontaSpace(
+                                                    hspace: Spacing.medium),
+                                                Align(
+                                                  alignment: Alignment.topLeft,
                                                   child: Text(
-                                                    "Rs: ${hell.creditLimit ?? ' '}",
+                                                    'Gift Budget',
                                                     textAlign: TextAlign.center,
                                                     style: TextStyle(
-                                                        letterSpacing: 0.1,
-                                                        fontFamily:
-                                                            "SignikaNegative-Bold",
+                                                        letterSpacing: 0.3,
+                                                        fontFamily: "KumbhSans",
                                                         fontWeight:
-                                                            FontWeight.w400,
+                                                            FontWeight.w600,
                                                         color: const Color(
-                                                            0xFFA6AEB0),
+                                                            0xFF222222),
                                                         fontSize: UiHelper
                                                                 .displayWidth(
                                                                     context) *
-                                                            0.04),
+                                                            0.043),
                                                   ),
                                                 ),
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                      SizedBox(
-                                        height:
-                                            UiHelper.displayHeight(context) *
-                                                0.000090,
-                                      ),
-                                      UiHelper.verticalSpace(
-                                          vspace: Spacing.medium),
-                                      Row(
-                                        children: [
-                                          UiHelper.horizontaSpace(
-                                              hspace: Spacing.large),
-                                          Align(
-                                              alignment: Alignment.bottomLeft,
-                                              child: Icon(
-                                                Icons.currency_rupee_rounded,
-                                                size: UiHelper.displayWidth(
-                                                        context) *
-                                                    0.065,
-                                                color: const Color(0xFF6BA444),
-                                              )),
-                                          UiHelper.horizontaSpace(
-                                              hspace: Spacing.medium),
-                                          Align(
-                                            alignment: Alignment.topLeft,
-                                            child: Text(
-                                              'Amount Paid',
-                                              textAlign: TextAlign.center,
-                                              style: TextStyle(
-                                                  letterSpacing: 0.3,
-                                                  fontFamily: "KumbhSans",
-                                                  fontWeight: FontWeight.w600,
-                                                  color:
-                                                      const Color(0xFF222222),
-                                                  fontSize:
-                                                      UiHelper.displayWidth(
-                                                              context) *
-                                                          0.043),
+                                              ],
                                             ),
-                                          ),
-                                        ],
-                                      ),
-                                      Column(
-                                        children: [
-                                          Row(
-                                            children: [
-                                              UiHelper.horizontaSpace(
-                                                  hspace: Spacing.xxlarge),
-                                              UiHelper.horizontaSpace(
-                                                  hspace: Spacing.xlarge),
-                                              UiHelper.horizontaSpace(
-                                                  hspace: Spacing.xsmall),
-                                              Align(
-                                                child: Container(
-                                                  alignment:
-                                                      Alignment.bottomLeft,
-                                                  width: width * 0.65,
-                                                  height: height * 0.03,
-                                                  child: Text(
-                                                    "Rs: ${hell.paidAmt ?? ' '}",
-                                                    textAlign: TextAlign.center,
-                                                    style: TextStyle(
-                                                        letterSpacing: 0.1,
-                                                        fontFamily:
-                                                            "SignikaNegative-Bold",
-                                                        fontWeight:
-                                                            FontWeight.w400,
-                                                        color: const Color(
-                                                            0xFFA6AEB0),
-                                                        fontSize: UiHelper
-                                                                .displayWidth(
-                                                                    context) *
-                                                            0.04),
-                                                  ),
+                                            Column(
+                                              children: [
+                                                Row(
+                                                  children: [
+                                                    UiHelper.horizontaSpace(
+                                                        hspace:
+                                                            Spacing.xxlarge),
+                                                    UiHelper.horizontaSpace(
+                                                        hspace: Spacing.xlarge),
+                                                    UiHelper.horizontaSpace(
+                                                        hspace: Spacing.xsmall),
+                                                    Align(
+                                                      child: Container(
+                                                        alignment: Alignment
+                                                            .bottomLeft,
+                                                        width: width * 0.65,
+                                                        height: height * 0.03,
+                                                        child: Text(
+                                                          "Rs: ${hell.creditLimit ?? ' '}",
+                                                          textAlign:
+                                                              TextAlign.center,
+                                                          style: TextStyle(
+                                                              letterSpacing:
+                                                                  0.1,
+                                                              fontFamily:
+                                                                  "SignikaNegative-Bold",
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w400,
+                                                              color: const Color(
+                                                                  0xFFA6AEB0),
+                                                              fontSize: UiHelper
+                                                                      .displayWidth(
+                                                                          context) *
+                                                                  0.04),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
                                                 ),
-                                              ),
-                                            ],
-                                          ),
-                                        ],
+                                              ],
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                     ],
                                   ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-        ));
+                                ))))
+                  ])));
   }
 }
 
@@ -834,9 +608,9 @@ class CurvePainter extends CustomPainter {
 
     var path = Path();
 
-    path.moveTo(0, size.height * 0.36);
+    path.moveTo(0, size.height * 0.5);
     path.quadraticBezierTo(
-        size.width / 2, size.height / 2.8, size.width, size.height * 0.36);
+        size.width / 2, size.height / 2.035, size.width, size.height * 0.5);
     path.lineTo(size.width, 0);
     path.lineTo(0, 0);
 

@@ -416,7 +416,7 @@ class _HistoryState extends State<History> {
         centerTitle: true,
         automaticallyImplyLeading: false,
         elevation: 0,
-        backgroundColor: const Color(0xFF6BA444).withOpacity(0.65),
+        backgroundColor: const Color(0xFF6BA444),
         //  backgroundColor: const Color(0xFF6BA444),
       ),
       backgroundColor: const Color.fromARGB(255, 255, 255, 255),
@@ -443,160 +443,526 @@ class _HistoryState extends State<History> {
                                 Column(
                                   children: [
                                     Container(height: height * 0.02),
-                                    Container(
-                                      height: height / 15,
-                                      width: width * 0.94,
-                                      color: const Color(0xFFFCD62D)
-                                          .withOpacity(0.42),
-                                      child: Row(
-                                        children: [
-                                          Container(width: width * 0.045),
-                                          const Text(
-                                            "Biraj Dulal",
-                                            style: TextStyle(
-                                                fontFamily:
-                                                    "SignikaNegative-Regular",
-                                                fontWeight: FontWeight.w400,
-                                                color: Color(0xFF222222),
-                                                fontSize: 14.7),
-                                          ),
-                                          Container(width: width * 0.5),
-                                          const Text(
-                                            "Pending",
-                                            style: TextStyle(
-                                                fontFamily:
-                                                    "SignikaNegative-Regular",
-                                                fontWeight: FontWeight.w400,
-                                                color: Color.fromARGB(
-                                                    255, 233, 194, 19),
-                                                fontSize: 16),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                    Container(height: height * 0.02),
-                                    Container(
-                                      height: height / 15,
-                                      width: width * 0.94,
-                                      color: const Color(0xFFFCD62D)
-                                          .withOpacity(0.42),
-                                      child: Row(
-                                        children: [
-                                          Container(width: width * 0.045),
-                                          const Text(
-                                            "Biraj Dulal",
-                                            style: TextStyle(
-                                                fontFamily:
-                                                    "SignikaNegative-Regular",
-                                                fontWeight: FontWeight.w400,
-                                                color: Color(0xFF222222),
-                                                fontSize: 14.7),
-                                          ),
-                                          Container(width: width * 0.5),
-                                          const Text(
-                                            "Approved",
-                                            style: TextStyle(
-                                                fontFamily:
-                                                    "SignikaNegative-Regular",
-                                                fontWeight: FontWeight.w400,
-                                                color: Colors.green,
-                                                fontSize: 16),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                    Container(height: height * 0.02),
-                                    Container(
-                                      height: height / 15,
-                                      width: width * 0.94,
-                                      color: const Color(0xFFFCD62D)
-                                          .withOpacity(0.42),
-                                      child: Row(
-                                        children: [
-                                          Container(width: width * 0.045),
-                                          const Text(
-                                            "Biraj Dulal",
-                                            style: TextStyle(
-                                                fontFamily:
-                                                    "SignikaNegative-Regular",
-                                                fontWeight: FontWeight.w400,
-                                                color: Color(0xFF222222),
-                                                fontSize: 14.7),
-                                          ),
-                                          Container(width: width * 0.5),
-                                          const Text(
-                                            "Rejected",
-                                            style: TextStyle(
-                                                fontFamily:
-                                                    "SignikaNegative-Regular",
-                                                fontWeight: FontWeight.w400,
-                                                color: Colors.red,
-                                                fontSize: 16),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                    Container(height: height * 0.03),
-                                    Container(
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        children: [
-                                          SizedBox(
-                                            height: height * 0.075,
-                                            width: width * 0.91,
-                                            child: MaterialButton(
-                                              color: const Color(
-                                                  0xFF6BA444), //background color of button
-                                              shape: RoundedRectangleBorder(
-                                                //to set border radius to button
-                                                borderRadius:
-                                                    BorderRadius.circular(5),
+                                    GestureDetector(
+                                      onTap: () {},
+                                      child: Container(
+                                        height: height / 4.85,
+                                        width: width * 0.94,
+                                        decoration: BoxDecoration(
+                                          color: const Color(0xFF6BA444)
+                                              .withOpacity(0.52),
+                                          borderRadius: const BorderRadius.all(
+                                              Radius.circular(20)),
+                                        ),
+                                        child: Column(children: [
+                                          Container(height: height * 0.03),
+                                          Row(
+                                            children: [
+                                              Container(width: width * 0.045),
+                                              CircleAvatar(
+                                                  backgroundColor:
+                                                      const Color(0xFF6BA444)
+                                                          .withOpacity(0.7),
+                                                  child: const Text(
+                                                    '1',
+                                                    style: TextStyle(
+                                                        color:
+                                                            Color(0xFFFFFFFF)),
+                                                  )),
+                                              Container(width: width * 0.045),
+                                              Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  const Text(
+                                                    "Himesh Yadav",
+                                                    style: TextStyle(
+                                                        fontFamily:
+                                                            "SignikaNegative-Regular",
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                        color:
+                                                            Color(0xFF222222),
+                                                        fontSize: 14.7),
+                                                  ),
+                                                  Container(
+                                                      height: height * 0.0025),
+                                                  Text(
+                                                    "2023-01-25",
+                                                    style: TextStyle(
+                                                        fontFamily:
+                                                            "SignikaNegative-Regular",
+                                                        fontWeight:
+                                                            FontWeight.w400,
+                                                        color: const Color(
+                                                                0xFF222222)
+                                                            .withOpacity(0.65),
+                                                        fontSize: 12),
+                                                  ),
+                                                ],
                                               ),
-                                              child: Text(
-                                                "Generate Lottery",
-                                                textAlign: TextAlign.center,
+                                              Container(width: width * 0.267),
+                                              const Text(
+                                                "Pending",
                                                 style: TextStyle(
-                                                  height: height * 0.001,
-                                                  fontFamily:
-                                                      "ZenKakuGothicAntique",
-                                                  fontWeight: FontWeight.w600,
-                                                  color: const Color.fromARGB(
-                                                      255, 255, 255, 255),
-                                                  fontSize: width * 0.055,
-                                                ),
-                                              ),
-                                              onPressed: () {
-                                                if (grading.text.isEmpty &&
-                                                    pricing.text.isEmpty &&
-                                                    pricing.text.isEmpty &&
-                                                    quantitative.text.isEmpty) {
-                                                  QuickAlert.show(
-                                                    context: context,
-                                                    type: QuickAlertType.error,
-                                                    confirmBtnColor:
-                                                        const Color(0xFF6BA444),
-                                                    title: 'Error',
-                                                    text:
-                                                        'Please fill up all the fields!!!',
-                                                  );
-                                                } else {
-                                                  QuickAlert.show(
-                                                    context: context,
-                                                    type:
-                                                        QuickAlertType.success,
-                                                    confirmBtnColor:
-                                                        const Color(0xFF6BA444),
-                                                    text:
-                                                        'Transaction Completed Successfully!',
-                                                  );
-                                                }
-                                              },
-                                            ),
+                                                    fontFamily:
+                                                        "SignikaNegative-Regular",
+                                                    fontWeight: FontWeight.w400,
+                                                    color: Color.fromARGB(
+                                                        255, 251, 229, 28),
+                                                    fontSize: 16),
+                                              )
+                                            ],
                                           ),
-                                        ],
+                                          Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              SizedBox(
+                                                height: UiHelper.displayHeight(
+                                                        context) *
+                                                    0.018,
+                                              ),
+                                              Row(
+                                                children: [
+                                                  Container(
+                                                      width: width * 0.045),
+                                                  Container(
+                                                    alignment:
+                                                        Alignment.topLeft,
+                                                    child: Text(
+                                                      "Phone Number: 9888645491",
+                                                      style: TextStyle(
+                                                        fontFamily:
+                                                            "PublicSans",
+                                                        fontWeight:
+                                                            FontWeight.w400,
+                                                        color: const Color(
+                                                            0xFF222222),
+                                                        fontSize: UiHelper
+                                                                .displayWidth(
+                                                                    context) *
+                                                            0.0345,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                              SizedBox(
+                                                height: UiHelper.displayHeight(
+                                                        context) *
+                                                    0.004,
+                                              ),
+                                              Row(
+                                                children: [
+                                                  Container(
+                                                      width: width * 0.045),
+                                                  Container(
+                                                    alignment:
+                                                        Alignment.topLeft,
+                                                    child: Text(
+                                                      "Bill Number: KK888G677",
+                                                      style: TextStyle(
+                                                        fontFamily:
+                                                            "PublicSans",
+                                                        fontWeight:
+                                                            FontWeight.w400,
+                                                        color: const Color(
+                                                            0xFF222222),
+                                                        fontSize: UiHelper
+                                                                .displayWidth(
+                                                                    context) *
+                                                            0.0345,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                              SizedBox(
+                                                height: UiHelper.displayHeight(
+                                                        context) *
+                                                    0.004,
+                                              ),
+                                              Row(
+                                                children: [
+                                                  Container(
+                                                      width: width * 0.045),
+                                                  Container(
+                                                    alignment:
+                                                        Alignment.topLeft,
+                                                    child: Text(
+                                                      "Total Bill: Rs: 5,000",
+                                                      style: TextStyle(
+                                                        fontFamily:
+                                                            "PublicSans",
+                                                        fontWeight:
+                                                            FontWeight.w400,
+                                                        color: const Color(
+                                                            0xFF222222),
+                                                        fontSize: UiHelper
+                                                                .displayWidth(
+                                                                    context) *
+                                                            0.0345,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        ]),
+                                      ),
+                                    ),
+                                    Container(height: height * 0.02),
+                                    GestureDetector(
+                                      onTap: () {},
+                                      child: Container(
+                                        height: height / 4.85,
+                                        width: width * 0.94,
+                                        decoration: BoxDecoration(
+                                          color: const Color(0xFF6BA444)
+                                              .withOpacity(0.52),
+                                          borderRadius: const BorderRadius.all(
+                                              Radius.circular(20)),
+                                        ),
+                                        child: Column(children: [
+                                          Container(height: height * 0.03),
+                                          Row(
+                                            children: [
+                                              Container(width: width * 0.045),
+                                              CircleAvatar(
+                                                  backgroundColor:
+                                                      const Color(0xFF6BA444)
+                                                          .withOpacity(0.7),
+                                                  child: const Text(
+                                                    '2',
+                                                    style: TextStyle(
+                                                        color:
+                                                            Color(0xFFFFFFFF)),
+                                                  )),
+                                              Container(width: width * 0.045),
+                                              Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  const Text(
+                                                    "Biraj Dulal",
+                                                    style: TextStyle(
+                                                        fontFamily:
+                                                            "SignikaNegative-Regular",
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                        color:
+                                                            Color(0xFF222222),
+                                                        fontSize: 14.7),
+                                                  ),
+                                                  Container(
+                                                      height: height * 0.0025),
+                                                  Text(
+                                                    "2023-05-12",
+                                                    style: TextStyle(
+                                                        fontFamily:
+                                                            "SignikaNegative-Regular",
+                                                        fontWeight:
+                                                            FontWeight.w400,
+                                                        color: const Color(
+                                                                0xFF222222)
+                                                            .withOpacity(0.65),
+                                                        fontSize: 12),
+                                                  ),
+                                                ],
+                                              ),
+                                              Container(width: width * 0.32),
+                                              const Text(
+                                                "Approved",
+                                                style: TextStyle(
+                                                    fontFamily:
+                                                        "SignikaNegative-Regular",
+                                                    fontWeight: FontWeight.w400,
+                                                    color: Colors.green,
+                                                    fontSize: 16),
+                                              )
+                                            ],
+                                          ),
+                                          Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              SizedBox(
+                                                height: UiHelper.displayHeight(
+                                                        context) *
+                                                    0.018,
+                                              ),
+                                              Row(
+                                                children: [
+                                                  Container(
+                                                      width: width * 0.045),
+                                                  Container(
+                                                    alignment:
+                                                        Alignment.topLeft,
+                                                    child: Text(
+                                                      "Phone Number: 9818611491",
+                                                      style: TextStyle(
+                                                        fontFamily:
+                                                            "PublicSans",
+                                                        fontWeight:
+                                                            FontWeight.w400,
+                                                        color: const Color(
+                                                            0xFF222222),
+                                                        fontSize: UiHelper
+                                                                .displayWidth(
+                                                                    context) *
+                                                            0.0345,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                              SizedBox(
+                                                height: UiHelper.displayHeight(
+                                                        context) *
+                                                    0.004,
+                                              ),
+                                              Row(
+                                                children: [
+                                                  Container(
+                                                      width: width * 0.045),
+                                                  Container(
+                                                    alignment:
+                                                        Alignment.topLeft,
+                                                    child: Text(
+                                                      "Bill Number: HGHGFG677",
+                                                      style: TextStyle(
+                                                        fontFamily:
+                                                            "PublicSans",
+                                                        fontWeight:
+                                                            FontWeight.w400,
+                                                        color: const Color(
+                                                            0xFF222222),
+                                                        fontSize: UiHelper
+                                                                .displayWidth(
+                                                                    context) *
+                                                            0.0345,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                              SizedBox(
+                                                height: UiHelper.displayHeight(
+                                                        context) *
+                                                    0.004,
+                                              ),
+                                              Row(
+                                                children: [
+                                                  Container(
+                                                      width: width * 0.045),
+                                                  Container(
+                                                    alignment:
+                                                        Alignment.topLeft,
+                                                    child: Text(
+                                                      "Total Bill: Rs: 20,000",
+                                                      style: TextStyle(
+                                                        fontFamily:
+                                                            "PublicSans",
+                                                        fontWeight:
+                                                            FontWeight.w400,
+                                                        color: const Color(
+                                                            0xFF222222),
+                                                        fontSize: UiHelper
+                                                                .displayWidth(
+                                                                    context) *
+                                                            0.0345,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        ]),
+                                      ),
+                                    ),
+                                    Container(height: height * 0.02),
+                                    GestureDetector(
+                                      onTap: () {},
+                                      child: Container(
+                                        height: height / 4.85,
+                                        width: width * 0.94,
+                                        decoration: BoxDecoration(
+                                          color: const Color(0xFF6BA444)
+                                              .withOpacity(0.52),
+                                          borderRadius: const BorderRadius.all(
+                                              Radius.circular(20)),
+                                        ),
+                                        child: Column(children: [
+                                          Container(height: height * 0.03),
+                                          Row(
+                                            children: [
+                                              Container(width: width * 0.045),
+                                              CircleAvatar(
+                                                  backgroundColor:
+                                                      const Color(0xFF6BA444)
+                                                          .withOpacity(0.7),
+                                                  child: const Text(
+                                                    '3',
+                                                    style: TextStyle(
+                                                        color:
+                                                            Color(0xFFFFFFFF)),
+                                                  )),
+                                              Container(width: width * 0.045),
+                                              Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  const Text(
+                                                    "Hari Chaudhary",
+                                                    style: TextStyle(
+                                                        fontFamily:
+                                                            "SignikaNegative-Regular",
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                        color:
+                                                            Color(0xFF222222),
+                                                        fontSize: 14.7),
+                                                  ),
+                                                  Container(
+                                                      height: height * 0.0025),
+                                                  Text(
+                                                    "2023-02-05",
+                                                    style: TextStyle(
+                                                        fontFamily:
+                                                            "SignikaNegative-Regular",
+                                                        fontWeight:
+                                                            FontWeight.w400,
+                                                        color: const Color(
+                                                                0xFF222222)
+                                                            .withOpacity(0.65),
+                                                        fontSize: 12),
+                                                  ),
+                                                ],
+                                              ),
+                                              Container(width: width * 0.235),
+                                              const Text(
+                                                "Rejected",
+                                                style: TextStyle(
+                                                    fontFamily:
+                                                        "SignikaNegative-Regular",
+                                                    fontWeight: FontWeight.w400,
+                                                    color: Colors.red,
+                                                    fontSize: 16),
+                                              )
+                                            ],
+                                          ),
+                                          Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              SizedBox(
+                                                height: UiHelper.displayHeight(
+                                                        context) *
+                                                    0.018,
+                                              ),
+                                              Row(
+                                                children: [
+                                                  Container(
+                                                      width: width * 0.045),
+                                                  Container(
+                                                    alignment:
+                                                        Alignment.topLeft,
+                                                    child: Text(
+                                                      "Phone Number: 9813090018",
+                                                      style: TextStyle(
+                                                        fontFamily:
+                                                            "PublicSans",
+                                                        fontWeight:
+                                                            FontWeight.w400,
+                                                        color: const Color(
+                                                            0xFF222222),
+                                                        fontSize: UiHelper
+                                                                .displayWidth(
+                                                                    context) *
+                                                            0.0345,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                              SizedBox(
+                                                height: UiHelper.displayHeight(
+                                                        context) *
+                                                    0.004,
+                                              ),
+                                              Row(
+                                                children: [
+                                                  Container(
+                                                      width: width * 0.045),
+                                                  Container(
+                                                    alignment:
+                                                        Alignment.topLeft,
+                                                    child: Text(
+                                                      "Bill Number: KIT56677",
+                                                      style: TextStyle(
+                                                        fontFamily:
+                                                            "PublicSans",
+                                                        fontWeight:
+                                                            FontWeight.w400,
+                                                        color: const Color(
+                                                            0xFF222222),
+                                                        fontSize: UiHelper
+                                                                .displayWidth(
+                                                                    context) *
+                                                            0.0345,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                              SizedBox(
+                                                height: UiHelper.displayHeight(
+                                                        context) *
+                                                    0.004,
+                                              ),
+                                              Row(
+                                                children: [
+                                                  Container(
+                                                      width: width * 0.045),
+                                                  Container(
+                                                    alignment:
+                                                        Alignment.topLeft,
+                                                    child: Text(
+                                                      "Total Bill: Rs: 2,000",
+                                                      style: TextStyle(
+                                                        fontFamily:
+                                                            "PublicSans",
+                                                        fontWeight:
+                                                            FontWeight.w400,
+                                                        color: const Color(
+                                                            0xFF222222),
+                                                        fontSize: UiHelper
+                                                                .displayWidth(
+                                                                    context) *
+                                                            0.0345,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        ]),
                                       ),
                                     ),
                                   ],
