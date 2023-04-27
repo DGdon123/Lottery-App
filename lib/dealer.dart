@@ -15,6 +15,7 @@ import 'package:ecommerce/services/api_services.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 import 'package:provider/provider.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 
 import 'cart_provider.dart';
 import 'models/ply.dart';
@@ -412,10 +413,19 @@ class _FourthScreenState extends State<FourthScreen> {
     width = sizings.width;
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Home"),
+        title: Text('Home',
+            style: TextStyle(
+              color: const Color(0xFFFFFFFF),
+              fontFamily: 'Nunito',
+              fontSize: 19.2.sp,
+              height: 0.16.h,
+              letterSpacing: 0.4,
+              fontWeight: FontWeight.w900,
+            )),
         centerTitle: true,
         automaticallyImplyLeading: false,
         elevation: 0,
+
         backgroundColor: const Color(0xFF6BA444),
         //  backgroundColor: const Color(0xFF6BA444),
       ),
@@ -443,23 +453,23 @@ class _FourthScreenState extends State<FourthScreen> {
                             Column(
                               children: [
                                 Container(
-                                  height: height / 55,
+                                  height: height / 52,
                                 ),
                                 Row(children: [
                                   Container(
-                                    width: width * 0.04,
+                                    width: width * 0.043,
                                   ),
                                   Text(
                                     "Full Name",
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
-                                        fontFamily: "Mulish",
+                                        fontFamily: "Roboto",
                                         height:
                                             UiHelper.displayHeight(context) *
                                                 0.0015,
-                                        fontWeight: FontWeight.w600,
+                                        fontWeight: FontWeight.w500,
                                         color: const Color(0xFF222222),
-                                        fontSize: width * 0.042),
+                                        fontSize: width * 0.034),
                                   ),
                                 ]),
                                 UiHelper.verticalSpace(vspace: Spacing.small),
@@ -468,41 +478,49 @@ class _FourthScreenState extends State<FourthScreen> {
                                     UiHelper.horizontaSpace(
                                         hspace: Spacing.xlarge),
                                     Container(
-                                      height: height / 18,
+                                      height: height / 14,
                                       width: width * 0.9,
                                       margin: const EdgeInsets.only(top: 0),
-                                      child: TextField(
+                                      child: TextFormField(
                                         controller: quantitative,
                                         maxLines: 1,
                                         cursorColor: Colors.black,
                                         keyboardType:
                                             TextInputType.visiblePassword,
-                                        decoration: const InputDecoration(
-                                          hintText: 'Customers Full Name',
-                                          hintStyle: TextStyle(
-                                              height: 2,
+                                        decoration: InputDecoration(
+                                          filled: true,
+                                          fillColor: const Color(0xFF6BA444)
+                                              .withOpacity(0.2),
+                                          hintText: 'Enter Customers Full Name',
+                                          hintStyle: const TextStyle(
+                                              height: 1,
                                               fontFamily:
                                                   "SignikaNegative-Regular",
                                               fontWeight: FontWeight.w400,
-                                              color: Color(0xFF1B1B1E),
-                                              fontSize: 14.7),
-                                          contentPadding: EdgeInsets.all(10),
+                                              color: Color(0xff2222222),
+                                              fontSize: 14),
+                                          contentPadding:
+                                              const EdgeInsets.all(10),
                                           enabledBorder: OutlineInputBorder(
                                             borderSide: BorderSide(
-                                                color: Color(0xFF222222),
+                                                color: const Color(0xFF6BA444)
+                                                    .withOpacity(0.4),
                                                 width: 1,
                                                 style: BorderStyle.solid),
-                                            borderRadius: BorderRadius.all(
-                                              Radius.circular(4),
+                                            borderRadius:
+                                                const BorderRadius.all(
+                                              Radius.circular(8),
                                             ),
                                           ),
                                           focusedBorder: OutlineInputBorder(
                                             borderSide: BorderSide(
-                                                color: Color(0xFF6BA444),
+                                                color: const Color(0xFF6BA444)
+                                                    .withOpacity(0.4),
                                                 width: 1.5,
                                                 style: BorderStyle.solid),
-                                            borderRadius: BorderRadius.all(
-                                              Radius.circular(4),
+                                            borderRadius:
+                                                const BorderRadius.all(
+                                              Radius.circular(8),
                                             ),
                                           ),
                                         ),
@@ -511,30 +529,30 @@ class _FourthScreenState extends State<FourthScreen> {
                                             fontFamily:
                                                 "SignikaNegative-Regular",
                                             fontWeight: FontWeight.w400,
-                                            color: Color(0xFF1B1B1E),
-                                            fontSize: 14.7),
+                                            color: Color(0xff2222222),
+                                            fontSize: 14),
                                       ),
                                     ),
                                   ],
                                 ),
                                 Container(
-                                  height: height / 45,
+                                  height: height / 52,
                                 ),
                                 Row(children: [
                                   Container(
-                                    width: width * 0.04,
+                                    width: width * 0.043,
                                   ),
                                   Text(
                                     "Phone Number",
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
-                                        fontFamily: "Mulish",
+                                        fontFamily: "Roboto",
                                         height:
                                             UiHelper.displayHeight(context) *
                                                 0.0015,
                                         fontWeight: FontWeight.w600,
                                         color: const Color(0xFF222222),
-                                        fontSize: width * 0.042),
+                                        fontSize: width * 0.034),
                                   ),
                                 ]),
                                 UiHelper.verticalSpace(vspace: Spacing.small),
@@ -543,40 +561,50 @@ class _FourthScreenState extends State<FourthScreen> {
                                     UiHelper.horizontaSpace(
                                         hspace: Spacing.xlarge),
                                     Container(
-                                      height: height / 18,
+                                      height: height / 14,
                                       width: width * 0.9,
                                       margin: const EdgeInsets.only(top: 0),
-                                      child: TextField(
+                                      child: TextFormField(
                                         controller: grading,
                                         maxLines: 1,
                                         cursorColor: Colors.black,
-                                        keyboardType: TextInputType.number,
-                                        decoration: const InputDecoration(
-                                          hintText: 'Customers Phone Number',
-                                          hintStyle: TextStyle(
-                                              height: 2,
+                                        keyboardType:
+                                            TextInputType.visiblePassword,
+                                        decoration: InputDecoration(
+                                          filled: true,
+                                          fillColor: const Color(0xFF6BA444)
+                                              .withOpacity(0.2),
+                                          hintText:
+                                              'Enter Customers Phone Number',
+                                          hintStyle: const TextStyle(
+                                              height: 1,
                                               fontFamily:
                                                   "SignikaNegative-Regular",
                                               fontWeight: FontWeight.w400,
-                                              color: Color(0xFF1B1B1E),
-                                              fontSize: 14.7),
-                                          contentPadding: EdgeInsets.all(10),
+                                              color: Color(0xff2222222),
+                                              fontSize: 14),
+                                          contentPadding:
+                                              const EdgeInsets.all(10),
                                           enabledBorder: OutlineInputBorder(
                                             borderSide: BorderSide(
-                                                color: Color(0xFF222222),
+                                                color: const Color(0xFF6BA444)
+                                                    .withOpacity(0.4),
                                                 width: 1,
                                                 style: BorderStyle.solid),
-                                            borderRadius: BorderRadius.all(
-                                              Radius.circular(4),
+                                            borderRadius:
+                                                const BorderRadius.all(
+                                              Radius.circular(8),
                                             ),
                                           ),
                                           focusedBorder: OutlineInputBorder(
                                             borderSide: BorderSide(
-                                                color: Color(0xFF6BA444),
+                                                color: const Color(0xFF6BA444)
+                                                    .withOpacity(0.4),
                                                 width: 1.5,
                                                 style: BorderStyle.solid),
-                                            borderRadius: BorderRadius.all(
-                                              Radius.circular(4),
+                                            borderRadius:
+                                                const BorderRadius.all(
+                                              Radius.circular(8),
                                             ),
                                           ),
                                         ),
@@ -585,30 +613,30 @@ class _FourthScreenState extends State<FourthScreen> {
                                             fontFamily:
                                                 "SignikaNegative-Regular",
                                             fontWeight: FontWeight.w400,
-                                            color: Color(0xFF1B1B1E),
+                                            color: Color(0xff2222222),
                                             fontSize: 14.7),
                                       ),
                                     ),
                                   ],
                                 ),
                                 Container(
-                                  height: height / 45,
+                                  height: height / 52,
                                 ),
                                 Row(children: [
                                   Container(
-                                    width: width * 0.04,
+                                    width: width * 0.043,
                                   ),
                                   Text(
                                     "Bill Number",
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
-                                        fontFamily: "Mulish",
+                                        fontFamily: "Roboto",
                                         height:
                                             UiHelper.displayHeight(context) *
                                                 0.0015,
                                         fontWeight: FontWeight.w600,
                                         color: const Color(0xFF222222),
-                                        fontSize: width * 0.042),
+                                        fontSize: width * 0.034),
                                   ),
                                 ]),
                                 UiHelper.verticalSpace(vspace: Spacing.small),
@@ -617,40 +645,49 @@ class _FourthScreenState extends State<FourthScreen> {
                                     UiHelper.horizontaSpace(
                                         hspace: Spacing.xlarge),
                                     Container(
-                                      height: height / 18,
+                                      height: height / 14,
                                       width: width * 0.9,
                                       margin: const EdgeInsets.only(top: 0),
-                                      child: TextField(
+                                      child: TextFormField(
                                         controller: prices,
                                         maxLines: 1,
                                         cursorColor: Colors.black,
                                         keyboardType: TextInputType.number,
-                                        decoration: const InputDecoration(
-                                          hintText: 'Customers Bill Number',
-                                          hintStyle: TextStyle(
-                                              height: 2,
+                                        decoration: InputDecoration(
+                                          filled: true,
+                                          fillColor: const Color(0xFF6BA444)
+                                              .withOpacity(0.2),
+                                          hintText:
+                                              'Enter Customers Bill Number',
+                                          hintStyle: const TextStyle(
+                                              height: 1,
                                               fontFamily:
                                                   "SignikaNegative-Regular",
                                               fontWeight: FontWeight.w400,
-                                              color: Color(0xFF1B1B1E),
-                                              fontSize: 14.7),
-                                          contentPadding: EdgeInsets.all(10),
+                                              color: Color(0xff2222222),
+                                              fontSize: 14),
+                                          contentPadding:
+                                              const EdgeInsets.all(10),
                                           enabledBorder: OutlineInputBorder(
                                             borderSide: BorderSide(
-                                                color: Color(0xFF222222),
+                                                color: const Color(0xFF6BA444)
+                                                    .withOpacity(0.4),
                                                 width: 1,
                                                 style: BorderStyle.solid),
-                                            borderRadius: BorderRadius.all(
-                                              Radius.circular(4),
+                                            borderRadius:
+                                                const BorderRadius.all(
+                                              Radius.circular(8),
                                             ),
                                           ),
                                           focusedBorder: OutlineInputBorder(
                                             borderSide: BorderSide(
-                                                color: Color(0xFF6BA444),
+                                                color: const Color(0xFF6BA444)
+                                                    .withOpacity(0.4),
                                                 width: 1.5,
                                                 style: BorderStyle.solid),
-                                            borderRadius: BorderRadius.all(
-                                              Radius.circular(4),
+                                            borderRadius:
+                                                const BorderRadius.all(
+                                              Radius.circular(8),
                                             ),
                                           ),
                                         ),
@@ -659,30 +696,30 @@ class _FourthScreenState extends State<FourthScreen> {
                                             fontFamily:
                                                 "SignikaNegative-Regular",
                                             fontWeight: FontWeight.w400,
-                                            color: Color(0xFF1B1B1E),
+                                            color: Color(0xff2222222),
                                             fontSize: 14.7),
                                       ),
                                     ),
                                   ],
                                 ),
                                 Container(
-                                  height: height / 45,
+                                  height: height / 52,
                                 ),
                                 Row(children: [
                                   Container(
-                                    width: width * 0.04,
+                                    width: width * 0.043,
                                   ),
                                   Text(
                                     "Total Amount",
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
-                                        fontFamily: "Mulish",
+                                        fontFamily: "Roboto",
                                         height:
                                             UiHelper.displayHeight(context) *
                                                 0.0015,
                                         fontWeight: FontWeight.w600,
                                         color: const Color(0xFF222222),
-                                        fontSize: width * 0.042),
+                                        fontSize: width * 0.034),
                                   ),
                                 ]),
                                 UiHelper.verticalSpace(vspace: Spacing.small),
@@ -691,41 +728,50 @@ class _FourthScreenState extends State<FourthScreen> {
                                     UiHelper.horizontaSpace(
                                         hspace: Spacing.xlarge),
                                     Container(
-                                      height: height / 18,
+                                      height: height / 14,
                                       width: width * 0.9,
                                       margin: const EdgeInsets.only(top: 0),
-                                      child: TextField(
-                                        controller: pricing,
+                                      child: TextFormField(
+                                        controller: grading,
                                         maxLines: 1,
                                         cursorColor: Colors.black,
-                                        keyboardType: TextInputType.number,
-                                        decoration: const InputDecoration(
+                                        keyboardType:
+                                            TextInputType.visiblePassword,
+                                        decoration: InputDecoration(
+                                          filled: true,
+                                          fillColor: const Color(0xFF6BA444)
+                                              .withOpacity(0.2),
                                           hintText:
-                                              'Customers Total Bill Amount',
-                                          hintStyle: TextStyle(
-                                              height: 2,
+                                              'Enter Customers Total Bill Amount',
+                                          hintStyle: const TextStyle(
+                                              height: 1,
                                               fontFamily:
                                                   "SignikaNegative-Regular",
                                               fontWeight: FontWeight.w400,
-                                              color: Color(0xFF1B1B1E),
-                                              fontSize: 14.7),
-                                          contentPadding: EdgeInsets.all(10),
+                                              color: Color(0xff2222222),
+                                              fontSize: 14),
+                                          contentPadding:
+                                              const EdgeInsets.all(10),
                                           enabledBorder: OutlineInputBorder(
                                             borderSide: BorderSide(
-                                                color: Color(0xFF222222),
+                                                color: const Color(0xFF6BA444)
+                                                    .withOpacity(0.4),
                                                 width: 1,
                                                 style: BorderStyle.solid),
-                                            borderRadius: BorderRadius.all(
-                                              Radius.circular(4),
+                                            borderRadius:
+                                                const BorderRadius.all(
+                                              Radius.circular(8),
                                             ),
                                           ),
                                           focusedBorder: OutlineInputBorder(
                                             borderSide: BorderSide(
-                                                color: Color(0xFF6BA444),
+                                                color: const Color(0xFF6BA444)
+                                                    .withOpacity(0.4),
                                                 width: 1.5,
                                                 style: BorderStyle.solid),
-                                            borderRadius: BorderRadius.all(
-                                              Radius.circular(4),
+                                            borderRadius:
+                                                const BorderRadius.all(
+                                              Radius.circular(8),
                                             ),
                                           ),
                                         ),
@@ -734,7 +780,7 @@ class _FourthScreenState extends State<FourthScreen> {
                                             fontFamily:
                                                 "SignikaNegative-Regular",
                                             fontWeight: FontWeight.w400,
-                                            color: Color(0xFF1B1B1E),
+                                            color: Color(0xff2222222),
                                             fontSize: 14.7),
                                       ),
                                     ),
@@ -749,20 +795,20 @@ class _FourthScreenState extends State<FourthScreen> {
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   SizedBox(
-                                    height: height * 0.075,
+                                    height: height * 0.084,
                                     width: width * 0.91,
                                     child: MaterialButton(
                                       color: const Color(0xFF6BA444).withOpacity(
                                           0.75), //background color of button
                                       shape: RoundedRectangleBorder(
                                         //to set border radius to button
-                                        borderRadius: BorderRadius.circular(5),
+                                        borderRadius: BorderRadius.circular(10),
                                       ),
                                       child: Text(
                                         "Submit",
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
-                                          height: height * 0.001,
+                                          height: height * 0.0012,
                                           fontFamily: "ZenKakuGothicAntique",
                                           fontWeight: FontWeight.w600,
                                           color: const Color.fromARGB(

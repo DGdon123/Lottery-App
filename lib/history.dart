@@ -15,6 +15,7 @@ import 'package:ecommerce/services/api_services.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 import 'package:provider/provider.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 
 import 'cart_provider.dart';
 import 'models/ply.dart';
@@ -412,7 +413,15 @@ class _HistoryState extends State<History> {
     width = sizings.width;
     return Scaffold(
       appBar: AppBar(
-        title: const Text("History"),
+        title: Text('History',
+            style: TextStyle(
+              color: const Color(0xFFFFFFFF),
+              fontFamily: 'Nunito',
+              height: 0.16.h,
+              fontSize: 19.2.sp,
+              letterSpacing: 0.4,
+              fontWeight: FontWeight.w900,
+            )),
         centerTitle: true,
         automaticallyImplyLeading: false,
         elevation: 0,

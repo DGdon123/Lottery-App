@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 
-import 'dealer copy.dart';
+import 'dealer.dart';
 
 class PasswordScreen extends StatefulWidget {
   const PasswordScreen({Key? key}) : super(key: key);
@@ -25,7 +25,7 @@ class _PasswordScreenState extends State<PasswordScreen> {
 
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-  Color originalButtonColor = const Color(0xFF6BA444);
+  Color originalButtonColor = const Color(0xFF6BA444).withOpacity(0.75);
   Color? _buttonColor;
   final String _email = '';
   final String _password = '';
@@ -51,7 +51,7 @@ class _PasswordScreenState extends State<PasswordScreen> {
       retrieveToken();
       setState(() {
         _clicked = true;
-        _buttonColor = const Color(0xFF6BA444);
+        _buttonColor = const Color(0xFF6BA444).withOpacity(0.75);
       });
 
       Navigator.pushAndRemoveUntil(
@@ -322,7 +322,8 @@ class _PasswordScreenState extends State<PasswordScreen> {
                                                 size: UiHelper.displayWidth(
                                                         context) *
                                                     0.065,
-                                                color: const Color(0xFF6BA444),
+                                                color: const Color(0xFF6BA444)
+                                                    .withOpacity(0.75),
                                               ),
                                               Container(
                                                 width: width * 0.030,
@@ -334,8 +335,8 @@ class _PasswordScreenState extends State<PasswordScreen> {
                                                   height: height * 0.0017,
                                                   fontFamily: "Cabin",
                                                   fontWeight: FontWeight.w600,
-                                                  color:
-                                                      const Color(0xFF6BA444),
+                                                  color: const Color(0xFF6BA444)
+                                                      .withOpacity(0.75),
                                                   fontSize: width * 0.042,
                                                 ),
                                               ),
@@ -364,7 +365,8 @@ class _PasswordScreenState extends State<PasswordScreen> {
                                               backgroundColor: _clicked
                                                   ? MaterialStateProperty.all<
                                                       Color>(
-                                                      const Color(0xFF6BA444),
+                                                      const Color(0xFF6BA444)
+                                                          .withOpacity(0.75),
                                                     )
                                                   : MaterialStateProperty.all<
                                                       Color>(_buttonColor!),

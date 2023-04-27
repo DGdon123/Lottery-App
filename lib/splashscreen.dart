@@ -1,13 +1,10 @@
 import 'dart:async';
 import 'package:ecommerce/ui_helper.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 
-import 'buy.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
-
-import 'dealerlogin.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key}) : super(key: key);
@@ -19,10 +16,20 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   var size, height, width;
+  final storage = const FlutterSecureStorage();
   @override
   void initState() {
     super.initState();
-    Timer(const Duration(seconds: 3), () => Get.toNamed('/third'));
+    checkTokenAndRedirect();
+  }
+
+  Future<void> checkTokenAndRedirect() async {
+    String? token = await storage.read(key: 'token');
+    if (token == null) {
+      Get.offAllNamed('/third');
+    } else {
+      Timer(const Duration(seconds: 3), () => Get.toNamed('/third2'));
+    }
   }
 
   @override

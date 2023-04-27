@@ -4,58 +4,40 @@ import 'dart:convert';
 
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:ecommerce/NetworkHandler.dart';
-import 'package:ecommerce/cart.dart';
-import 'package:ecommerce/models/cooking.dart';
+import 'package:badges/badges.dart' as badges;
 
 import 'package:ecommerce/services/bpi.dart';
-import 'package:ecommerce/services/cpi.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 import 'package:ecommerce/models/cartmodel.dart';
 import 'package:ecommerce/services/api_services.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import 'package:http/http.dart' as http;
+import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:quickalert/quickalert.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 
-import 'package:shared_preferences/shared_preferences.dart';
-
-import 'services/api.dart';
-
-import 'data_class.dart';
 import 'models/cookies.dart';
 import 'models/ply.dart';
 import 'models/profiling.dart';
 import 'ui_helper.dart';
 
 class NinethScreen extends StatefulWidget {
-  NinethScreen(
-      {required this.userId,
-      required this.id,
-      required this.productName,
-      required this.gradeName,
-      required this.priceName,
-      required this.thicknessName,
-      required this.unit,
-      required this.size,
-      required this.quantity});
-  String userId;
-  String id;
-  String productName;
-  String gradeName;
-  String priceName;
-  String thicknessName;
-  String size;
-  String unit;
-  String quantity;
+  const NinethScreen({
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<NinethScreen> createState() => _NinethScreenState();
 }
 
 class _NinethScreenState extends State<NinethScreen> {
+  dynamic argumentData = Get.arguments;
   var sizings, height, width;
   final baseurl = "https://trulam.prabidhienterprises.com/api/";
-  final storage = FlutterSecureStorage();
+  final storage = const FlutterSecureStorage();
   List<Cart> quantity = [];
   List<Grade> gradelist = [];
   List<Product> templist = [];
@@ -90,7 +72,7 @@ class _NinethScreenState extends State<NinethScreen> {
   List<Cookies> samplePosts = [];
   var userData = <Cookies>[];
   String id = '';
-  Color originalButtonColor = Color(0xFF6BA444);
+  Color originalButtonColor = const Color(0xFF6BA444);
   Color? _buttonColor;
   bool _clicked = false;
 
@@ -101,26 +83,6 @@ class _NinethScreenState extends State<NinethScreen> {
     _buttonColor = originalButtonColor;
     fetchData();
     data();
-    print(widget.userId);
-    print(widget.id);
-    print(widget.productName);
-    print(widget.gradeName);
-    print(widget.priceName);
-    print(widget.thicknessName);
-    print(widget.size);
-    print(widget.unit);
-    print(widget.quantity);
-    setState(() {
-      id = widget.id;
-      userId.text = widget.userId;
-      products.text = widget.productName;
-      grading.text = widget.gradeName;
-      pricing.text = widget.priceName;
-      thicknessing.text = widget.thicknessName;
-      sizing.text = widget.size;
-      uniting.text = widget.unit;
-      quantitative.text = widget.quantity;
-    });
   }
 
   void showDialogBox(bool isSuccessful) {
@@ -128,7 +90,7 @@ class _NinethScreenState extends State<NinethScreen> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-            backgroundColor: Color(0xFFFCD62D),
+            backgroundColor: const Color(0xFFFCD62D),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10.0),
             ),
@@ -137,13 +99,13 @@ class _NinethScreenState extends State<NinethScreen> {
                     "Success",
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      color: Color(0xFFFFFFFF),
+                      color: const Color(0xFFFFFFFF),
                       fontWeight: FontWeight.w600,
                       fontFamily: "Cabin",
                       fontSize: width * 0.058,
                     ),
                   )
-                : Text("Unsuccessful"),
+                : const Text("Unsuccessful"),
             content: isSuccessful
                 ? SizedBox(
                     height: UiHelper.displayHeight(context) * 0.122,
@@ -152,7 +114,7 @@ class _NinethScreenState extends State<NinethScreen> {
                         Text(
                           "Successfully added to cart!!!",
                           style: TextStyle(
-                            color: Color(0xFFFFFFFF),
+                            color: const Color(0xFFFFFFFF),
                             fontWeight: FontWeight.w500,
                             fontFamily: "Cabin",
                             fontSize: width * 0.053,
@@ -164,11 +126,11 @@ class _NinethScreenState extends State<NinethScreen> {
                             children: [
                               ElevatedButton(
                                 style: ElevatedButton.styleFrom(
-                                  backgroundColor: Color(0xFFFFFFFF),
+                                  backgroundColor: const Color(0xFFFFFFFF),
                                 ),
                                 child: Text("Place Again",
                                     style: TextStyle(
-                                      color: Color(0xFFFCD62D),
+                                      color: const Color(0xFFFCD62D),
                                       fontWeight: FontWeight.w600,
                                       fontFamily: "Cabin",
                                       fontSize: width * 0.04,
@@ -179,19 +141,19 @@ class _NinethScreenState extends State<NinethScreen> {
                               ),
                               UiHelper.horizontaSpace(hspace: Spacing.xxlarge),
                               ElevatedButton(
-                                child: Text("Close",
-                                    style: TextStyle(
-                                      color: Color(0xFFFCD62D),
-                                      fontWeight: FontWeight.w600,
-                                      fontFamily: "Cabin",
-                                      fontSize: width * 0.04,
-                                    )),
                                 style: ElevatedButton.styleFrom(
-                                  backgroundColor: Color(0xFFFFFFFF),
+                                  backgroundColor: const Color(0xFFFFFFFF),
                                 ),
                                 onPressed: () {
                                   Navigator.pushNamed(context, '/eleventh');
                                 },
+                                child: Text("Close",
+                                    style: TextStyle(
+                                      color: const Color(0xFFFCD62D),
+                                      fontWeight: FontWeight.w600,
+                                      fontFamily: "Cabin",
+                                      fontSize: width * 0.04,
+                                    )),
                               )
                             ],
                           ),
@@ -203,13 +165,13 @@ class _NinethScreenState extends State<NinethScreen> {
                     height: 95,
                     child: Column(
                       children: <Widget>[
-                        Text("Please fill up all the fields!!!"),
+                        const Text("Please fill up all the fields!!!"),
                         Container(
                           margin: const EdgeInsets.only(left: 35, top: 7),
                           child: Row(
                             children: [
                               ElevatedButton(
-                                child: Text("Close"),
+                                child: const Text("Close"),
                                 onPressed: () {
                                   Navigator.of(context).pop();
                                 },
@@ -285,14 +247,14 @@ class _NinethScreenState extends State<NinethScreen> {
           context: context,
           builder: (BuildContext context) {
             return AlertDialog(
-                backgroundColor: Color(0xFFFFFFFF),
+                backgroundColor: const Color(0xFFFFFFFF),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10.0),
                 ),
                 title: Text("Successfully Updated!!!",
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      color: Color(0xFF6BA444),
+                      color: const Color(0xFF6BA444),
                       fontWeight: FontWeight.w700,
                       fontFamily: "Nunito",
                       fontSize: width * 0.050,
@@ -308,11 +270,11 @@ class _NinethScreenState extends State<NinethScreen> {
                       children: [
                         ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: Color(0xFF6BA444),
+                            backgroundColor: const Color(0xFF6BA444),
                           ),
                           child: Text("Go Back",
                               style: TextStyle(
-                                color: Color(0xFFFFFFFF),
+                                color: const Color(0xFFFFFFFF),
                                 fontWeight: FontWeight.w600,
                                 fontFamily: "Cabin",
                                 fontSize: width * 0.045,
@@ -327,11 +289,11 @@ class _NinethScreenState extends State<NinethScreen> {
                         ),
                         ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: Color(0xFF6BA444),
+                            backgroundColor: const Color(0xFF6BA444),
                           ),
                           child: Text("Edit",
                               style: TextStyle(
-                                color: Color(0xFFFFFFFF),
+                                color: const Color(0xFFFFFFFF),
                                 fontWeight: FontWeight.w600,
                                 fontFamily: "Cabin",
                                 fontSize: width * 0.045,
@@ -363,9 +325,9 @@ class _NinethScreenState extends State<NinethScreen> {
       ScaffoldMessenger.of(context).showSnackBar(logInErrorBar);
       setState(() {
         _clicked = true;
-        _buttonColor = Color(0xFF6BA444);
+        _buttonColor = const Color(0xFF6BA444);
       });
-      await Future.delayed(Duration(seconds: 1));
+      await Future.delayed(const Duration(seconds: 1));
       setState(() {
         _clicked = false;
         _buttonColor = originalButtonColor;
@@ -385,24 +347,35 @@ class _NinethScreenState extends State<NinethScreen> {
   }
 
   @override
+  void onInit() {
+    print(argumentData[0]['address']);
+    print(argumentData[1]['email']);
+    print(argumentData[2]['mobile']);
+    print(argumentData[3]['gift']);
+    print(argumentData[4]['name']);
+  }
+
+  @override
   Widget build(BuildContext context) {
     sizings = MediaQuery.of(context).size;
     height = sizings.height;
     width = sizings.width;
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color(0xFF6BA444),
+        backgroundColor: const Color(0xFF6BA444),
         centerTitle: true,
-        title: const Text('My Cart',
+        title: Text('Edit Profile',
             style: TextStyle(
-              color: Color(0xFFFFFFFF),
-              fontFamily: 'Roboto',
-              fontSize: 22,
-              fontWeight: FontWeight.w700,
+              color: const Color(0xFFFFFFFF),
+              fontFamily: 'Nunito',
+              fontSize: 19.2.sp,
+              height: 0.16.h,
+              letterSpacing: 0.4,
+              fontWeight: FontWeight.w900,
             )),
-        iconTheme: const IconThemeData(
-          size: 30, //change size on your need
-          color: Color(0xFFFFFFFF), //change color on your need
+        iconTheme: IconThemeData(
+          size: 22.sp, //change size on your need
+          color: const Color(0xFFFFFFFF), //change color on your need
         ),
         elevation: 0,
         leading: Builder(
@@ -410,7 +383,9 @@ class _NinethScreenState extends State<NinethScreen> {
             return IconButton(
               icon: const Icon(Icons.arrow_back_ios_new_rounded),
               onPressed: () {
-                Navigator.pushNamed(context, '/eleventh');
+                Get.back(result: [
+                  {"backValue": "one"}
+                ]);
               },
             );
           },
@@ -419,629 +394,256 @@ class _NinethScreenState extends State<NinethScreen> {
       backgroundColor: const Color.fromARGB(255, 255, 255, 255),
       body: Center(
         child: isLoading
-            ? const CircularProgressIndicator(
-                color: Color(0xFF6BA444),
+            ? Container(
+                child: LoadingAnimationWidget.discreteCircle(
+                  secondRingColor: const Color(0xFF6BA444),
+                  thirdRingColor: const Color(0xFFFCD62D),
+                  size: UiHelper.displayWidth(context) * 0.08,
+                  color: const Color(0xFFFCD62D),
+                ),
               )
-            : Column(
-                children: [
-                  Container(
-                    child: Expanded(
+            : Container(
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Expanded(
                       child: SingleChildScrollView(
-                        child: Container(
-                          height: UiHelper.displayHeight(context) * 0.97,
-                          child: Column(
-                            children: [
-                              UiHelper.verticalSpace(vspace: Spacing.xxsmall),
-                              Row(
-                                children: [
-                                  UiHelper.horizontaSpace(
-                                      hspace: Spacing.xlarge),
+                        physics: const BouncingScrollPhysics(),
+                        child: Column(
+                          children: [
+                            Column(
+                              children: [
+                                Container(
+                                  height: 2.h,
+                                ),
+                                Row(children: [
+                                  Container(
+                                    width: width * 0.043,
+                                  ),
                                   Text(
-                                    "Edit Your Cart Items",
+                                    "Full Name",
+                                    textAlign: TextAlign.center,
                                     style: TextStyle(
-                                      fontFamily: "Catamaran",
-                                      color: Color(0xFF222222),
-                                      fontSize: width * 0.062,
-                                      height: height / 350,
-                                      fontWeight: FontWeight.w600,
-                                    ),
+                                        fontFamily: "Roboto",
+                                        fontWeight: FontWeight.w500,
+                                        color: const Color(0xFF222222),
+                                        fontSize: 15.5.sp),
                                   ),
-                                ],
-                              ),
-                              Column(
-                                children: [
-                                  Row(
-                                    children: [
-                                      UiHelper.verticalSpace(
-                                          vspace: Spacing.xlarge),
-                                      UiHelper.horizontaSpace(
-                                          hspace: Spacing.xlarge),
-                                      Text(
-                                        "Grade",
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                            fontFamily: "Mulish",
-                                            height: UiHelper.displayHeight(
-                                                    context) *
-                                                0.0015,
-                                            fontWeight: FontWeight.w600,
-                                            color: Color(0xFF222222),
-                                            fontSize: width * 0.042),
-                                      ),
-                                    ],
-                                  ),
-                                  Row(
-                                    children: [
-                                      UiHelper.horizontaSpace(
-                                          hspace: Spacing.xlarge),
-                                      Container(
-                                        height: height / 18,
-                                        width: width * 0.9,
-                                        margin: const EdgeInsets.only(top: 0),
-                                        decoration: BoxDecoration(
-                                          color: const Color.fromARGB(
-                                              255, 255, 255, 255),
-                                          border: Border.all(
-                                              color: const Color(0xFF222222),
-                                              width: 1,
-                                              style: BorderStyle.solid),
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(4.0)),
-                                        ),
-                                        child: DropdownButton2(
-                                          dropdownMaxHeight: 150,
-                                          itemPadding:
-                                              const EdgeInsets.only(left: 16),
-                                          isExpanded: true,
-                                          style: const TextStyle(
-                                              height: 1.3,
-                                              fontFamily:
-                                                  "SignikaNegative-Regular",
-                                              fontWeight: FontWeight.w500,
-                                              color: Color(0xFF1B1B1E),
-                                              fontSize: 14.7),
-                                          underline: Container(
-                                              color: Colors.transparent),
-                                          hint: Text(widget.gradeName),
-                                          value: grade,
-                                          onChanged: (newvalue) {
-                                            setState(() {
-                                              product = null;
-
-                                              grade = newvalue.toString();
-                                              templist = productlist
-                                                  .where((element) =>
-                                                      element.gradeId
-                                                          .toString() ==
-                                                      grade.toString())
-                                                  .toList();
-                                            });
-                                            grading.text = newvalue.toString();
-                                          },
-                                          items: gradelist.map((itemone) {
-                                            return DropdownMenuItem(
-                                                value: itemone.id.toString(),
-                                                child: Text(itemone.title));
-                                          }).toList(),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: height * 0.01,
-                                  ),
-                                  Row(
-                                    children: [
-                                      UiHelper.verticalSpace(
-                                          vspace: Spacing.xlarge),
-                                      UiHelper.horizontaSpace(
-                                          hspace: Spacing.xlarge),
-                                      Text(
-                                        "Product",
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                            fontFamily: "Mulish",
-                                            height: UiHelper.displayHeight(
-                                                    context) *
-                                                0.0015,
-                                            fontWeight: FontWeight.w600,
-                                            color: Color(0xFF222222),
-                                            fontSize: width * 0.042),
-                                      ),
-                                    ],
-                                  ),
-                                  Row(
-                                    children: [
-                                      UiHelper.horizontaSpace(
-                                          hspace: Spacing.xlarge),
-                                      Container(
-                                        height: height / 18,
-                                        width: width * 0.9,
-                                        margin: const EdgeInsets.only(top: 0),
-                                        decoration: BoxDecoration(
-                                          color: const Color.fromARGB(
-                                              255, 255, 255, 255),
-                                          border: Border.all(
-                                              color: const Color(0xFF222222),
-                                              width: 1,
-                                              style: BorderStyle.solid),
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(4.0)),
-                                        ),
-                                        child: DropdownButton2(
-                                          dropdownMaxHeight: 150,
-                                          itemPadding:
-                                              const EdgeInsets.only(left: 16),
-                                          isExpanded: true,
-                                          style: const TextStyle(
-                                              height: 1.3,
-                                              fontFamily:
-                                                  "SignikaNegative-Regular",
-                                              fontWeight: FontWeight.w500,
-                                              color: Color(0xFF1B1B1E),
-                                              fontSize: 14.7),
-                                          underline: Container(
-                                              color: Colors.transparent),
-                                          hint: Text(widget.productName),
-                                          value: product,
-                                          onChanged: (newvalue) {
-                                            setState(() {
-                                              thickness = null;
-                                              product = newvalue.toString();
-                                              thicklist = thicknesslist
-                                                  .where((element) =>
-                                                      element.productId
-                                                              .toString() ==
-                                                          product.toString() &&
-                                                      element.gradeId
-                                                              .toString() ==
-                                                          grade.toString())
-                                                  .toList();
-                                            });
-                                            products.text = newvalue.toString();
-                                          },
-                                          items: templist.map((itemone) {
-                                            return DropdownMenuItem(
-                                                value: itemone.id.toString(),
-                                                child: Text(itemone.title));
-                                          }).toList(),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: height * 0.01,
-                                  ),
-                                  Row(
-                                    children: [
-                                      UiHelper.verticalSpace(
-                                          vspace: Spacing.xlarge),
-                                      UiHelper.horizontaSpace(
-                                          hspace: Spacing.xlarge),
-                                      Text(
-                                        "Thickness",
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                            fontFamily: "Mulish",
-                                            height: UiHelper.displayHeight(
-                                                    context) *
-                                                0.0015,
-                                            fontWeight: FontWeight.w600,
-                                            color: Color(0xFF222222),
-                                            fontSize: width * 0.042),
-                                      ),
-                                    ],
-                                  ),
-                                  Row(
-                                    children: [
-                                      UiHelper.horizontaSpace(
-                                          hspace: Spacing.xlarge),
-                                      Container(
-                                        height: height / 18,
-                                        width: width * 0.9,
-                                        margin: const EdgeInsets.only(top: 0),
-                                        decoration: BoxDecoration(
-                                          color: const Color.fromARGB(
-                                              255, 255, 255, 255),
-                                          border: Border.all(
-                                              color: const Color(0xFF5C573E),
-                                              width: 1.6,
-                                              style: BorderStyle.solid),
-                                        ),
-                                        child: DropdownButton2(
-                                          dropdownMaxHeight: 150,
-                                          itemPadding:
-                                              const EdgeInsets.only(left: 16),
-                                          isExpanded: true,
-                                          style: const TextStyle(
-                                              height: 1.3,
-                                              fontFamily:
-                                                  "SignikaNegative-Regular",
-                                              fontWeight: FontWeight.w500,
-                                              color: Color(0xFF1B1B1E),
-                                              fontSize: 14.7),
-                                          underline: Container(
-                                              color: Colors.transparent),
-                                          hint: Text(widget.thicknessName),
-                                          value: thickness,
-                                          onChanged: (newvalue) {
-                                            setState(() {
-                                              thickness = newvalue.toString();
-                                            });
-                                            thicknessing.text =
-                                                newvalue.toString();
-                                          },
-                                          items: thicklist.map((itemone) {
-                                            return DropdownMenuItem(
-                                                value: itemone.id.toString(),
-                                                child: Text(itemone.title));
-                                          }).toList(),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: height * 0.01,
-                                  ),
-                                  Row(
-                                    children: [
-                                      UiHelper.verticalSpace(
-                                          vspace: Spacing.xlarge),
-                                      UiHelper.horizontaSpace(
-                                          hspace: Spacing.xlarge),
-                                      Text(
-                                        "Size",
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                            fontFamily: "Mulish",
-                                            height: UiHelper.displayHeight(
-                                                    context) *
-                                                0.0015,
-                                            fontWeight: FontWeight.w600,
-                                            color: Color(0xFF222222),
-                                            fontSize: width * 0.042),
-                                      ),
-                                    ],
-                                  ),
-                                  Row(
-                                    children: [
-                                      UiHelper.horizontaSpace(
-                                          hspace: Spacing.xlarge),
-                                      Container(
-                                        height: height / 18,
-                                        width: width * 0.9,
-                                        margin: const EdgeInsets.only(top: 0),
-                                        decoration: BoxDecoration(
-                                          color: const Color.fromARGB(
-                                              255, 255, 255, 255),
-                                          border: Border.all(
-                                              color: const Color(0xFF222222),
-                                              width: 1,
-                                              style: BorderStyle.solid),
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(4.0)),
-                                        ),
-                                        child: DropdownButton2(
-                                          dropdownMaxHeight: 150,
-                                          itemPadding:
-                                              const EdgeInsets.only(left: 16),
-                                          isExpanded: true,
-                                          style: const TextStyle(
-                                              height: 1.3,
-                                              fontFamily:
-                                                  "SignikaNegative-Regular",
-                                              fontWeight: FontWeight.w500,
-                                              color: Color(0xFF1B1B1E),
-                                              fontSize: 14.7),
-                                          underline: Container(
-                                              color: Colors.transparent),
-                                          hint: const Text("Select Size"),
-                                          value: size,
-                                          onChanged: (newvalue) {
-                                            setState(() {
-                                              size = newvalue.toString();
-                                            });
-                                            sizing.text = newvalue.toString();
-                                          },
-                                          items: sizinglist.map((itemone) {
-                                            return DropdownMenuItem(
-                                                value: itemone.id.toString(),
-                                                child: Text(itemone.title));
-                                          }).toList(),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: height * 0.01,
-                                  ),
-                                  Row(
-                                    children: [
-                                      UiHelper.verticalSpace(
-                                          vspace: Spacing.xlarge),
-                                      UiHelper.horizontaSpace(
-                                          hspace: Spacing.xlarge),
-                                      Text(
-                                        "Unit",
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                            fontFamily: "Mulish",
-                                            height: UiHelper.displayHeight(
-                                                    context) *
-                                                0.0015,
-                                            fontWeight: FontWeight.w600,
-                                            color: Color(0xFF222222),
-                                            fontSize: width * 0.042),
-                                      ),
-                                    ],
-                                  ),
-                                  Row(
-                                    children: [
-                                      UiHelper.horizontaSpace(
-                                          hspace: Spacing.xlarge),
-                                      Container(
-                                        height: height / 18,
-                                        width: width * 0.9,
-                                        margin: const EdgeInsets.only(top: 0),
-                                        decoration: BoxDecoration(
-                                          color: const Color.fromARGB(
-                                              255, 255, 255, 255),
-                                          border: Border.all(
-                                              color: const Color(0xFF222222),
-                                              width: 1,
-                                              style: BorderStyle.solid),
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(4.0)),
-                                        ),
-                                        child: DropdownButton2(
-                                          dropdownMaxHeight: 150,
-                                          itemPadding:
-                                              const EdgeInsets.only(left: 16),
-                                          isExpanded: true,
-                                          style: const TextStyle(
-                                              height: 1.3,
-                                              fontFamily:
-                                                  "SignikaNegative-Regular",
-                                              fontWeight: FontWeight.w500,
-                                              color: Color(0xFF1B1B1E),
-                                              fontSize: 14.7),
-                                          underline: Container(
-                                              color: Colors.transparent),
-                                          value: uni,
-                                          items: units.map((String itemone) {
-                                            return DropdownMenuItem(
-                                                value: itemone,
-                                                child: Text(itemone));
-                                          }).toList(),
-                                          onChanged: (String? newvalue) {
-                                            setState(() {
-                                              price = null;
-                                              uni = newvalue!;
-                                              pricelist = pricinglist
-                                                  .where((element) =>
-                                                      element.productId
-                                                              .toString() ==
-                                                          product.toString() &&
-                                                      element.gradeId
-                                                              .toString() ==
-                                                          grade.toString() &&
-                                                      element.thicknessId
-                                                              .toString() ==
-                                                          thickness.toString())
-                                                  .toList();
-                                            });
-                                            uniting.text = newvalue.toString();
-                                          },
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  const Divider(
-                                    thickness: 2.2, // thickness of the line
-                                    indent:
-                                        0, // empty space to the leading edge of divider.
-                                    endIndent:
-                                        0, // empty space to the trailing edge of the divider.
-                                    color: Color.fromARGB(255, 186, 186,
-                                        189), // The color to use when painting the line.
-                                    height:
-                                        30.5, // The divider's height extent.
-                                  ),
-                                  Row(
-                                    children: [
-                                      UiHelper.horizontaSpace(
-                                          hspace: Spacing.xlarge),
-                                      Text(
-                                        "Price:",
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                            height: height * 0.00096,
-                                            fontFamily: "Mulish",
-                                            fontWeight: FontWeight.w600,
-                                            color: Color(0xFF222222),
-                                            fontSize: width * 0.042),
-                                      ),
-                                      UiHelper.horizontaSpace(
-                                          hspace: Spacing.xsmall),
-                                      for (var item in pricelist)
-                                        Container(
-                                          width: width * 0.64,
-                                          height: height * 0.033,
-                                          margin:
-                                              const EdgeInsets.only(bottom: 0),
-                                          child: TextFormField(
-                                            decoration: const InputDecoration(
-                                              border: InputBorder.none,
-                                            ),
-                                            style: TextStyle(
-                                                fontFamily:
-                                                    "SignikaNegative-Bold",
-                                                fontWeight: FontWeight.w500,
-                                                color: Color.fromARGB(
-                                                    255, 0, 0, 0),
-                                                fontSize: width * 0.044),
-                                            controller: pricing
-                                              ..text = uni == "ft"
-                                                  ? "Rs. ${item.ftPrice} per/${uni}²"
-                                                  : "Rs. ${item.mtrPrice} per/${uni}²",
-                                            enabled: false,
-                                          ),
-                                        ),
-                                      for (var item in pricelist)
-                                        Container(
-                                          width: 1,
-                                          height: 20,
-                                          margin:
-                                              const EdgeInsets.only(left: 5),
-                                          color: const Color.fromARGB(
-                                              255, 255, 255, 255),
-                                          child: TextFormField(
-                                            decoration: const InputDecoration(
-                                                border: InputBorder.none),
-                                            style: const TextStyle(
-                                                height: 0.64,
-                                                fontFamily:
-                                                    "SignikaNegative-Bold",
-                                                fontWeight: FontWeight.w500,
-                                                color: Color.fromARGB(
-                                                    255, 0, 0, 0),
-                                                fontSize: 17.5),
-                                            enabled: false,
-                                            controller: prices
-                                              ..text = "${item.id}",
-                                          ),
-                                        ),
-                                    ],
-                                  ),
-                                  const Divider(
-                                    thickness: 2.2, // thickness of the line
-                                    indent:
-                                        0, // empty space to the leading edge of divider.
-                                    endIndent:
-                                        0, // empty space to the trailing edge of the divider.
-                                    color: Color.fromARGB(255, 186, 186,
-                                        189), // The color to use when painting the line.
-                                    height:
-                                        24.5, // The divider's height extent.
-                                  ),
-                                  UiHelper.verticalSpace(
-                                      vspace: Spacing.xxsmall),
-                                  Row(children: [
+                                ]),
+                                UiHelper.verticalSpace(vspace: Spacing.small),
+                                Row(
+                                  children: [
                                     UiHelper.horizontaSpace(
                                         hspace: Spacing.xlarge),
-                                    Text(
-                                      "Quantity",
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                          fontFamily: "Mulish",
-                                          height:
-                                              UiHelper.displayHeight(context) *
-                                                  0.0015,
-                                          fontWeight: FontWeight.w600,
-                                          color: Color(0xFF222222),
-                                          fontSize: width * 0.042),
-                                    ),
-                                  ]),
-                                  UiHelper.verticalSpace(vspace: Spacing.small),
-                                  Row(
-                                    children: [
-                                      UiHelper.horizontaSpace(
-                                          hspace: Spacing.xlarge),
-                                      Container(
-                                        height: height / 18,
-                                        width: width * 0.9,
-                                        margin: const EdgeInsets.only(top: 0),
-                                        decoration: BoxDecoration(
-                                          color: const Color.fromARGB(
-                                              255, 255, 255, 255),
-                                          border: Border.all(
-                                              color: const Color(0xFF222222),
-                                              width: 1,
-                                              style: BorderStyle.solid),
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(4.0)),
-                                        ),
-                                        child: TextField(
-                                          controller: quantitative,
-                                          maxLines: 1,
-                                          cursorColor: Colors.black,
-                                          keyboardType: TextInputType.number,
-                                          decoration: const InputDecoration(
-                                            hintText:
-                                                'Enter quantity of your plywood',
-                                            hintStyle: TextStyle(
-                                                height: 2,
-                                                fontFamily:
-                                                    "SignikaNegative-Regular",
-                                                fontWeight: FontWeight.w500,
-                                                color: Color(0xFF1B1B1E),
-                                                fontSize: 14.7),
-                                            contentPadding: EdgeInsets.all(8),
-                                            enabledBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                  color: Color.fromARGB(
-                                                      255, 255, 255, 255)),
-                                            ),
-                                            focusedBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                  color: Color.fromARGB(
-                                                      255, 255, 255, 255)),
-                                            ),
-                                          ),
-                                          style: const TextStyle(
-                                              decoration: TextDecoration.none,
-                                              fontSize: 16),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                              UiHelper.verticalSpace(vspace: Spacing.large),
-                              Container(
-                                child: Column(
-                                  children: [
                                     Container(
-                                      height: height * 0.065,
-                                      width: width * 0.88,
-                                      child: ElevatedButton(
-                                        style: ElevatedButton.styleFrom(
-                                          primary: const Color(
-                                              0xFF6BA444), //background color of button
-                                          //border width and color
-
-                                          shape: RoundedRectangleBorder(
-                                              //to set border radius to button
-                                              borderRadius:
-                                                  BorderRadius.circular(3)),
-                                        ),
-                                        child: Text(
-                                          "Update",
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                            height: height * 0.001,
-                                            fontFamily: "ZenKakuGothicAntique",
-                                            fontWeight: FontWeight.w600,
-                                            color: Color.fromARGB(
-                                                255, 255, 255, 255),
-                                            fontSize: width * 0.055,
+                                      height: height / 14,
+                                      width: width * 0.9,
+                                      margin: const EdgeInsets.only(top: 0),
+                                      child: TextFormField(
+                                        controller: quantitative,
+                                        maxLines: 1,
+                                        cursorColor: Colors.black,
+                                        keyboardType:
+                                            TextInputType.visiblePassword,
+                                        decoration: InputDecoration(
+                                          filled: true,
+                                          fillColor: const Color(0xFF6BA444)
+                                              .withOpacity(0.2),
+                                          hintText: argumentData[4]['name'],
+                                          hintStyle: const TextStyle(
+                                              height: 1,
+                                              fontFamily:
+                                                  "SignikaNegative-Regular",
+                                              fontWeight: FontWeight.w400,
+                                              color: Color(0xff2222222),
+                                              fontSize: 14),
+                                          contentPadding:
+                                              const EdgeInsets.all(10),
+                                          enabledBorder: OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                                color: const Color(0xFF6BA444)
+                                                    .withOpacity(0.4),
+                                                width: 1,
+                                                style: BorderStyle.solid),
+                                            borderRadius:
+                                                const BorderRadius.all(
+                                              Radius.circular(8),
+                                            ),
+                                          ),
+                                          focusedBorder: OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                                color: const Color(0xFF6BA444)
+                                                    .withOpacity(0.4),
+                                                width: 1.5,
+                                                style: BorderStyle.solid),
+                                            borderRadius:
+                                                const BorderRadius.all(
+                                              Radius.circular(8),
+                                            ),
                                           ),
                                         ),
-                                        onPressed: () async {
-                                          updateUser();
-                                        },
+                                        style: const TextStyle(
+                                            decoration: TextDecoration.none,
+                                            fontFamily:
+                                                "SignikaNegative-Regular",
+                                            fontWeight: FontWeight.w400,
+                                            color: Color(0xff2222222),
+                                            fontSize: 14),
                                       ),
                                     ),
                                   ],
                                 ),
-                              )
-                            ],
-                          ),
+                                Container(
+                                  height: height / 52,
+                                ),
+                                Row(children: [
+                                  Container(
+                                    width: width * 0.043,
+                                  ),
+                                  Text(
+                                    "Mobile Number",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        fontFamily: "Roboto",
+                                        height:
+                                            UiHelper.displayHeight(context) *
+                                                0.0015,
+                                        fontWeight: FontWeight.w600,
+                                        color: const Color(0xFF222222),
+                                        fontSize: width * 0.034),
+                                  ),
+                                ]),
+                                UiHelper.verticalSpace(vspace: Spacing.small),
+                                Row(
+                                  children: [
+                                    UiHelper.horizontaSpace(
+                                        hspace: Spacing.xlarge),
+                                    Container(
+                                      height: height / 14,
+                                      width: width * 0.9,
+                                      margin: const EdgeInsets.only(top: 0),
+                                      child: TextFormField(
+                                        controller: grading,
+                                        maxLines: 1,
+                                        cursorColor: Colors.black,
+                                        keyboardType:
+                                            TextInputType.visiblePassword,
+                                        decoration: InputDecoration(
+                                          filled: true,
+                                          fillColor: const Color(0xFF6BA444)
+                                              .withOpacity(0.2),
+                                          hintText: argumentData[2]['mobile'],
+                                          hintStyle: const TextStyle(
+                                              height: 1,
+                                              fontFamily:
+                                                  "SignikaNegative-Regular",
+                                              fontWeight: FontWeight.w400,
+                                              color: Color(0xff2222222),
+                                              fontSize: 14),
+                                          contentPadding:
+                                              const EdgeInsets.all(10),
+                                          enabledBorder: OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                                color: const Color(0xFF6BA444)
+                                                    .withOpacity(0.4),
+                                                width: 1,
+                                                style: BorderStyle.solid),
+                                            borderRadius:
+                                                const BorderRadius.all(
+                                              Radius.circular(8),
+                                            ),
+                                          ),
+                                          focusedBorder: OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                                color: const Color(0xFF6BA444)
+                                                    .withOpacity(0.4),
+                                                width: 1.5,
+                                                style: BorderStyle.solid),
+                                            borderRadius:
+                                                const BorderRadius.all(
+                                              Radius.circular(8),
+                                            ),
+                                          ),
+                                        ),
+                                        style: const TextStyle(
+                                            decoration: TextDecoration.none,
+                                            fontFamily:
+                                                "SignikaNegative-Regular",
+                                            fontWeight: FontWeight.w400,
+                                            color: Color(0xff2222222),
+                                            fontSize: 14.7),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                            Container(height: height * 0.03),
+                            Container(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  SizedBox(
+                                    height: height * 0.084,
+                                    width: width * 0.91,
+                                    child: MaterialButton(
+                                      color: const Color(0xFF6BA444).withOpacity(
+                                          0.75), //background color of button
+                                      shape: RoundedRectangleBorder(
+                                        //to set border radius to button
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                      child: Text(
+                                        "Submit",
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          height: height * 0.0012,
+                                          fontFamily: "ZenKakuGothicAntique",
+                                          fontWeight: FontWeight.w600,
+                                          color: const Color.fromARGB(
+                                              255, 255, 255, 255),
+                                          fontSize: width * 0.055,
+                                        ),
+                                      ),
+                                      onPressed: () {
+                                        if (grading.text.isEmpty &&
+                                            pricing.text.isEmpty &&
+                                            pricing.text.isEmpty &&
+                                            quantitative.text.isEmpty) {
+                                          QuickAlert.show(
+                                            context: context,
+                                            type: QuickAlertType.error,
+                                            confirmBtnColor:
+                                                const Color(0xFF6BA444)
+                                                    .withOpacity(0.75),
+                                            title: 'Error',
+                                            text:
+                                                'Please fill up all the fields!!!',
+                                          );
+                                        } else {
+                                          QuickAlert.show(
+                                            context: context,
+                                            type: QuickAlertType.success,
+                                            confirmBtnColor:
+                                                const Color(0xFF6BA444),
+                                            text:
+                                                'Transaction Completed Successfully!',
+                                          );
+                                        }
+                                      },
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     ),
-                  )
-                ],
+                  ],
+                ),
               ),
       ),
     );

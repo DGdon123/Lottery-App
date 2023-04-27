@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:http/http.dart';
 
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:quickalert/quickalert.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'dealer.dart';
@@ -27,7 +28,7 @@ class _FifthScreenState extends State<FifthScreen> {
 
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-  Color originalButtonColor = const Color(0xFF6BA444);
+  Color originalButtonColor = const Color(0xFF6BA444).withOpacity(0.75);
   Color? _buttonColor;
   final String _email = '';
   final String _password = '';
@@ -50,35 +51,43 @@ class _FifthScreenState extends State<FifthScreen> {
     if (body['success']) {
       String token = body['data']['token'];
       storeToken(token);
-      retrieveToken();
+      String? retrievedToken = await retrieveToken();
       setState(() {
         _clicked = true;
         _buttonColor = const Color(0xFF6BA444);
       });
 
-      Get.toNamed('/third2');
+      if (retrievedToken != null) {
+        Get.toNamed('/third2');
 
-      await Future.delayed(const Duration(seconds: 2));
-      setState(() {
-        _clicked = false;
-        _buttonColor = originalButtonColor;
-      });
+        await Future.delayed(const Duration(seconds: 2));
+        setState(() {
+          _clicked = false;
+          _buttonColor = originalButtonColor;
+        });
+      } else {
+        QuickAlert.show(
+          context: context,
+          type: QuickAlertType.error,
+          title: 'Session Expired',
+          text: 'Your session has expired. Please log in again.',
+        );
+      }
     } else {
-      const logInErrorBar = SnackBar(
-        content: Text(
-          "Invalid Email or Password",
-          style: TextStyle(
-            color: Color(0xFFFFFFFF),
-            fontSize: 17,
-            fontWeight: FontWeight.w700,
-            fontFamily: 'Nunito',
-          ),
-          textAlign: TextAlign.center,
-        ),
-        duration: Duration(milliseconds: 1400),
-        backgroundColor: Color(0xFF6BA444),
+      Get.snackbar(
+        "Error",
+        "Invalid Email and Password!",
+        backgroundColor: Colors.red.shade400,
+        colorText: const Color.fromARGB(255, 255, 255, 255),
+        duration: const Duration(milliseconds: 3000),
+        snackPosition: SnackPosition.BOTTOM,
+        margin: const EdgeInsets.all(10),
+        borderRadius: 10,
+        borderWidth: 2,
+        borderColor: Colors.red,
+        animationDuration: const Duration(milliseconds: 400),
       );
-      ScaffoldMessenger.of(context).showSnackBar(logInErrorBar);
+
       setState(() {
         _clicked = true;
         _buttonColor = const Color(0xFF6BA444);
@@ -91,13 +100,29 @@ class _FifthScreenState extends State<FifthScreen> {
     }
   }
 
-  storeToken(String token) async {
+  Future<void> storeToken(String token) async {
+    final expirationDate = DateTime.now().add(const Duration(days: 30));
     await storage.write(key: 'token', value: token);
+    await storage.write(
+        key: 'tokenExpiration', value: expirationDate.toIso8601String());
   }
 
-  retrieveToken() async {
-    String? token = await storage.read(key: 'token');
-    print(token);
+  Future<String?> retrieveToken() async {
+    final tokenExpirationString = await storage.read(key: 'tokenExpiration');
+    if (tokenExpirationString != null) {
+      final tokenExpiration = DateTime.parse(tokenExpirationString);
+      if (tokenExpiration.isAfter(DateTime.now())) {
+        final token = await storage.read(key: 'token');
+        return token;
+      } else {
+        await storage.delete(key: 'token');
+        await storage.delete(key: 'tokenExpiration');
+        return null;
+      }
+    } else {
+      final token = await storage.read(key: 'token');
+      return token;
+    }
   }
 
   @override
@@ -469,7 +494,8 @@ class _FifthScreenState extends State<FifthScreen> {
                                               backgroundColor: _clicked
                                                   ? MaterialStateProperty.all<
                                                       Color>(
-                                                      const Color(0xFF6BA444),
+                                                      const Color(0xFF6BA444)
+                                                          .withOpacity(0.75),
                                                     )
                                                   : MaterialStateProperty.all<
                                                       Color>(_buttonColor!),
@@ -483,31 +509,31 @@ class _FifthScreenState extends State<FifthScreen> {
                                                             .text.isEmpty &&
                                                         passwordController
                                                             .text.isEmpty) {
-                                                      const emptyFieldErrorBar =
-                                                          SnackBar(
-                                                        content: Text(
-                                                          "Email and Password fields cannot be empty",
-                                                          style: TextStyle(
-                                                            color: Color(
-                                                                0xFFFFFFFF),
-                                                            fontSize: 15,
-                                                            fontWeight:
-                                                                FontWeight.w700,
-                                                            fontFamily:
-                                                                'Nunito',
-                                                          ),
-                                                          textAlign:
-                                                              TextAlign.center,
-                                                        ),
-                                                        duration: Duration(
-                                                            milliseconds: 1400),
+                                                      Get.snackbar(
+                                                        "Error",
+                                                        "Email and Password fields cannot be empty",
                                                         backgroundColor:
-                                                            Color(0xFF6BA444),
+                                                            Colors.red.shade400,
+                                                        colorText: const Color
+                                                                .fromARGB(
+                                                            255, 255, 255, 255),
+                                                        duration:
+                                                            const Duration(
+                                                                milliseconds:
+                                                                    2000),
+                                                        snackPosition:
+                                                            SnackPosition.TOP,
+                                                        margin: const EdgeInsets
+                                                            .all(10),
+                                                        borderRadius: 10,
+                                                        borderWidth: 2,
+                                                        borderColor: Colors.red,
+                                                        animationDuration:
+                                                            const Duration(
+                                                                milliseconds:
+                                                                    400),
                                                       );
-                                                      ScaffoldMessenger.of(
-                                                              context)
-                                                          .showSnackBar(
-                                                              emptyFieldErrorBar);
+
                                                       setState(() =>
                                                           _clicked = true);
                                                       await Future.delayed(
@@ -517,31 +543,32 @@ class _FifthScreenState extends State<FifthScreen> {
                                                           _clicked = false);
                                                     } else if (emailController
                                                         .text.isEmpty) {
-                                                      const emptyFieldErrorBar =
-                                                          SnackBar(
-                                                        content: Text(
-                                                          "Email field cannot be empty",
-                                                          style: TextStyle(
-                                                            color: Color(
-                                                                0xFFFFFFFF),
-                                                            fontSize: 17,
-                                                            fontWeight:
-                                                                FontWeight.w700,
-                                                            fontFamily:
-                                                                'Nunito',
-                                                          ),
-                                                          textAlign:
-                                                              TextAlign.center,
-                                                        ),
-                                                        duration: Duration(
-                                                            milliseconds: 1400),
+                                                      Get.snackbar(
+                                                        "Error",
+                                                        "Email field cannot be empty",
                                                         backgroundColor:
-                                                            Color(0xFF6BA444),
+                                                            Colors.red.shade400,
+                                                        colorText: const Color
+                                                                .fromARGB(
+                                                            255, 255, 255, 255),
+                                                        duration:
+                                                            const Duration(
+                                                                milliseconds:
+                                                                    3000),
+                                                        snackPosition:
+                                                            SnackPosition
+                                                                .BOTTOM,
+                                                        margin: const EdgeInsets
+                                                            .all(10),
+                                                        borderRadius: 10,
+                                                        borderWidth: 2,
+                                                        borderColor: Colors.red,
+                                                        animationDuration:
+                                                            const Duration(
+                                                                milliseconds:
+                                                                    400),
                                                       );
-                                                      ScaffoldMessenger.of(
-                                                              context)
-                                                          .showSnackBar(
-                                                              emptyFieldErrorBar);
+
                                                       setState(() =>
                                                           _clicked = true);
                                                       await Future.delayed(
@@ -551,31 +578,32 @@ class _FifthScreenState extends State<FifthScreen> {
                                                           _clicked = false);
                                                     } else if (passwordController
                                                         .text.isEmpty) {
-                                                      const emptyFieldErrorBar =
-                                                          SnackBar(
-                                                        content: Text(
-                                                          "Password field cannot be empty",
-                                                          style: TextStyle(
-                                                            color: Color(
-                                                                0xFFFFFFFF),
-                                                            fontSize: 17,
-                                                            fontWeight:
-                                                                FontWeight.w700,
-                                                            fontFamily:
-                                                                'Nunito',
-                                                          ),
-                                                          textAlign:
-                                                              TextAlign.center,
-                                                        ),
-                                                        duration: Duration(
-                                                            milliseconds: 1400),
+                                                      Get.snackbar(
+                                                        "Error",
+                                                        "Password field cannot be empty",
                                                         backgroundColor:
-                                                            Color(0xFF6BA444),
+                                                            Colors.red.shade400,
+                                                        colorText: const Color
+                                                                .fromARGB(
+                                                            255, 255, 255, 255),
+                                                        duration:
+                                                            const Duration(
+                                                                milliseconds:
+                                                                    3000),
+                                                        snackPosition:
+                                                            SnackPosition
+                                                                .BOTTOM,
+                                                        margin: const EdgeInsets
+                                                            .all(10),
+                                                        borderRadius: 10,
+                                                        borderWidth: 2,
+                                                        borderColor: Colors.red,
+                                                        animationDuration:
+                                                            const Duration(
+                                                                milliseconds:
+                                                                    400),
                                                       );
-                                                      ScaffoldMessenger.of(
-                                                              context)
-                                                          .showSnackBar(
-                                                              emptyFieldErrorBar);
+
                                                       setState(() =>
                                                           _clicked = true);
                                                       await Future.delayed(
