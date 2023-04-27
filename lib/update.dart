@@ -527,8 +527,7 @@ class _NinethScreenState extends State<NinethScreen> {
                                         controller: grading,
                                         maxLines: 1,
                                         cursorColor: Colors.black,
-                                        keyboardType:
-                                            TextInputType.visiblePassword,
+                                        keyboardType: TextInputType.number,
                                         decoration: InputDecoration(
                                           filled: true,
                                           fillColor: const Color(0xFF6BA444)

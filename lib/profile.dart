@@ -22,6 +22,7 @@ import 'package:quickalert/models/quickalert_type.dart';
 import 'package:quickalert/widgets/quickalert_dialog.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
+import 'controllers/signup_controller.dart';
 import 'models/accounting.dart';
 
 class FourthRoute extends StatefulWidget {
@@ -47,13 +48,15 @@ class _FourthRouteState extends State<FourthRoute> {
   Help help = Help();
   List<Pay> datalist = [];
   List<Pay> payed = [];
+  File? _imagePath;
   NetworkHandler networkHandler = NetworkHandler();
   Account hell = Account(
       creditBalance: '', discount: '0', deliveryCharge: 0, companyName: '');
 
   Post profileModel = Post();
   String creditBalance = "0.00";
-
+  SignUpController signUpController = Get.put(SignUpController());
+  SignUpController signUp = Get.find();
   @override
   void initState() {
     super.initState();
@@ -113,6 +116,53 @@ class _FourthRouteState extends State<FourthRoute> {
       datalist = tree.data;
       payed = [datalist.last];
     });
+  }
+
+  Future<void> _pickImage() async {
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return SafeArea(
+          child: Container(
+            child: Wrap(
+              children: <Widget>[
+                ListTile(
+                  leading: const Icon(Icons.camera_alt),
+                  title: const Text('Take a photo'),
+                  onTap: () async {
+                    final pickedFile = await ImagePicker().pickImage(
+                        source: ImageSource.camera, imageQuality: 100);
+                    if (pickedFile != null) {
+                      // Save the image to disk or use it in your app
+                      _imagePath = File(pickedFile.path);
+                      signUp.setProfileImagePath(_imagePath!.path);
+                      // Do whatever you want with the image file here
+                    }
+                    Navigator.pop(context);
+                  },
+                ),
+                ListTile(
+                  leading: const Icon(Icons.photo_library),
+                  title: const Text('Choose from gallery'),
+                  onTap: () async {
+                    final pickedFile = await ImagePicker().getImage(
+                      source: ImageSource.gallery,
+                    );
+                    if (pickedFile != null) {
+                      // Save the image to disk or use it in your app
+                      _imagePath = File(pickedFile.path);
+                      signUp.setProfileImagePath(_imagePath!.path);
+                      // Do whatever you want with the image file here
+                    }
+                    Navigator.pop(context);
+                  },
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
   }
 
   @override
@@ -195,97 +245,47 @@ class _FourthRouteState extends State<FourthRoute> {
                             height: UiHelper.displayHeight(context) * 0.001,
                           ),
                           badges.Badge(
-                            position: badges.BadgePosition.bottomEnd(
-                                bottom: 3, end: 3),
-                            showBadge: true,
-                            ignorePointer: false,
-                            onTap: () {
-                              showModalBottomSheet(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return SafeArea(
-                                    child: Container(
-                                      child: Wrap(
-                                        children: <Widget>[
-                                          ListTile(
-                                            leading:
-                                                const Icon(Icons.camera_alt),
-                                            title: const Text('Take a photo'),
-                                            onTap: () async {
-                                              final pickedFile =
-                                                  await ImagePicker().getImage(
-                                                source: ImageSource.camera,
-                                              );
-                                              if (pickedFile != null) {
-                                                // Save the image to disk or use it in your app
-                                                final File image =
-                                                    File(pickedFile.path);
-                                                // Do whatever you want with the image file here
-                                              }
-                                              Navigator.pop(context);
-                                            },
-                                          ),
-                                          ListTile(
-                                            leading:
-                                                const Icon(Icons.photo_library),
-                                            title: const Text(
-                                                'Choose from gallery'),
-                                            onTap: () async {
-                                              final pickedFile =
-                                                  await ImagePicker().getImage(
-                                                source: ImageSource.gallery,
-                                              );
-                                              if (pickedFile != null) {
-                                                // Save the image to disk or use it in your app
-                                                final File image =
-                                                    File(pickedFile.path);
-                                                // Do whatever you want with the image file here
-                                              }
-                                              Navigator.pop(context);
-                                            },
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  );
-                                },
-                              );
-                            },
-                            badgeContent: const Icon(Icons.camera_alt_outlined,
-                                color: Colors.white, size: 16),
-                            badgeAnimation:
-                                const badges.BadgeAnimation.rotation(
-                              animationDuration: Duration(seconds: 1),
-                              colorChangeAnimationDuration:
-                                  Duration(seconds: 1),
-                              loopAnimation: false,
-                              curve: Curves.fastOutSlowIn,
-                              colorChangeAnimationCurve: Curves.easeInCubic,
-                            ),
-                            badgeStyle: badges.BadgeStyle(
-                              badgeColor: const Color(0xFF6BA444),
-                              padding: const EdgeInsets.all(5),
-                              borderRadius: BorderRadius.circular(4),
-                              borderSide: const BorderSide(
-                                  color: Colors.white, width: 2),
-                              elevation: 0,
-                            ),
-                            child: Container(
-                              //margin: const EdgeInsets.only(top: 20),
-                              width: UiHelper.displayWidth(context) * 0.3,
-                              height: UiHelper.displayHeight(context) * 0.15,
-                              decoration: const BoxDecoration(
-                                image: DecorationImage(
-                                    image: AssetImage(
-                                      "images/logos.png",
-                                    ),
-                                    fit: BoxFit.fitWidth),
-                                color: Color.fromARGB(255, 255, 255, 255),
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(80)),
+                              position: badges.BadgePosition.bottomEnd(
+                                  bottom: 3, end: 3),
+                              showBadge: true,
+                              ignorePointer: false,
+                              onTap: () {
+                                _pickImage();
+                              },
+                              badgeContent: Icon(Icons.camera_alt_outlined,
+                                  color: Colors.white, size: 16.5.sp),
+                              badgeAnimation:
+                                  const badges.BadgeAnimation.rotation(
+                                animationDuration: Duration(seconds: 1),
+                                colorChangeAnimationDuration:
+                                    Duration(seconds: 1),
+                                loopAnimation: false,
+                                curve: Curves.fastOutSlowIn,
+                                colorChangeAnimationCurve: Curves.easeInCubic,
                               ),
-                            ),
-                          ),
+                              badgeStyle: badges.BadgeStyle(
+                                badgeColor: Colors.grey,
+                                padding: const EdgeInsets.all(5),
+                                borderRadius: BorderRadius.circular(4),
+                                borderSide: const BorderSide(
+                                    color: Colors.white, width: 1.8),
+                                elevation: 0,
+                              ),
+                              child: Obx(
+                                () => CircleAvatar(
+                                  backgroundColor: Colors.white,
+                                  backgroundImage: signUp
+                                              .isProficPicPathSet.value ==
+                                          true
+                                      ? FileImage(
+                                              File(signUp.profilePicPath.value))
+                                          as ImageProvider
+                                      : const AssetImage(
+                                          "images/logos.png",
+                                        ),
+                                  radius: 30.sp,
+                                ),
+                              )),
                           SizedBox(
                             height: UiHelper.displayHeight(context) * 0.025,
                           ),
