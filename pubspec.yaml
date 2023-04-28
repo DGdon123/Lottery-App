@@ -73,6 +73,7 @@ dependencies:
   hive_flutter: ^1.1.0
   responsive_sizer: ^3.1.1
   image_picker: ^0.8.7+4
+  google_fonts: ^4.0.4
   
   
   
@@ -105,6 +106,7 @@ flutter:
   assets:
   - images/
   - images/profile.jpg
+  
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

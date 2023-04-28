@@ -8,6 +8,7 @@ import 'package:http/http.dart';
 
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:quickalert/quickalert.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'dealer.dart';
@@ -144,17 +145,18 @@ class _FifthScreenState extends State<FifthScreen> {
                         child: Container(
                           child: Column(
                             children: [
-                              Align(
-                                alignment: Alignment.bottomCenter,
-                                heightFactor: height * 0.00258,
-                                child: Image.asset(
-                                  "images/logos.png",
-                                  width: 155,
-                                  height: 105,
-                                  fit: BoxFit.fill,
-                                ),
+                              Container(
+                                height: 13.5.h,
                               ),
-                              UiHelper.verticalSpace(vspace: Spacing.xxlarge),
+                              Image.asset(
+                                "images/logos.png",
+                                width: 40.w,
+                                height: 15.h,
+                                fit: BoxFit.fill,
+                              ),
+                              Container(
+                                height: 6.2.h,
+                              ),
                               Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -162,31 +164,32 @@ class _FifthScreenState extends State<FifthScreen> {
                                   Row(
                                     children: [
                                       Container(
-                                        width: width * 0.081,
+                                        width: 8.w,
                                       ),
                                       Container(
                                         alignment: Alignment.bottomLeft,
                                         child: Text(
                                           "Login",
                                           style: TextStyle(
-                                            height: height * 0.0015,
                                             letterSpacing: 0.1,
                                             fontFamily: "NotoSans",
                                             fontWeight: FontWeight.w900,
                                             color: const Color(0xFF222222),
-                                            fontSize: width * 0.065,
+                                            fontSize: 23.sp,
                                           ),
                                         ),
                                       ),
                                     ],
                                   ),
+                                  Container(
+                                    height: 1.37.h,
+                                  ),
                                   Row(
                                     children: [
                                       Container(
-                                        width: width * 0.081,
+                                        width: 8.w,
                                       ),
                                       Container(
-                                        margin: const EdgeInsets.only(top: 12),
                                         child: Text(
                                           "Please sign in to continue.",
                                           textAlign: TextAlign.center,
@@ -195,20 +198,22 @@ class _FifthScreenState extends State<FifthScreen> {
                                             fontFamily: "KumbhSans",
                                             fontWeight: FontWeight.w500,
                                             color: const Color(0xFFA6AEB0),
-                                            fontSize: width * 0.045,
+                                            fontSize: 17.8.sp,
                                           ),
                                         ),
                                       ),
                                     ],
                                   ),
+                                  Container(
+                                    height: 6.6.h,
+                                  ),
                                   Row(
                                     children: [
                                       Container(
-                                        width: width * 0.081,
+                                        width: 8.w,
                                       ),
                                       Container(
                                         alignment: Alignment.bottomLeft,
-                                        margin: const EdgeInsets.only(top: 45),
                                         child: Column(
                                           children: [
                                             Container(
@@ -225,7 +230,7 @@ class _FifthScreenState extends State<FifthScreen> {
                                                   //BoxShadow
                                                 ],
                                               ),
-                                              width: width * 0.832,
+                                              width: 83.w,
                                               child: TextFormField(
                                                 controller: emailController,
                                                 maxLines: 1,
@@ -275,26 +280,26 @@ class _FifthScreenState extends State<FifthScreen> {
                                                   labelText: 'Email',
                                                   hintText: 'Enter Your Email',
                                                   hintStyle: TextStyle(
-                                                    height: height * 0.0023,
+                                                    height: 0.1.h,
                                                     fontFamily: "Mulish",
                                                     fontWeight: FontWeight.w600,
                                                     color:
                                                         const Color(0xFFA6AEB0),
-                                                    fontSize: width * 0.043,
+                                                    fontSize: 17.2.sp,
                                                   ),
                                                   labelStyle: TextStyle(
                                                     fontFamily: "Mulish",
                                                     fontWeight: FontWeight.w600,
                                                     color:
                                                         const Color(0xFFA6AEB0),
-                                                    fontSize: width * 0.047,
+                                                    fontSize: 17.2.sp,
                                                   ),
                                                   suffixIconColor:
                                                       const Color.fromARGB(
                                                           255, 255, 0, 0),
                                                 ),
                                                 style: TextStyle(
-                                                  fontSize: width * 0.045,
+                                                  fontSize: 17.2.sp,
                                                   fontFamily: "Mulish",
                                                   fontWeight: FontWeight.w600,
                                                   color:
@@ -309,8 +314,9 @@ class _FifthScreenState extends State<FifthScreen> {
                                               ),
                                             ),
                                             Container(
-                                              margin: const EdgeInsets.only(
-                                                  top: 15),
+                                              height: 1.65.h,
+                                            ),
+                                            Container(
                                               decoration: BoxDecoration(
                                                 color: const Color(0xFFFFFFFF),
                                                 boxShadow: [
@@ -324,7 +330,7 @@ class _FifthScreenState extends State<FifthScreen> {
                                                   //BoxShadow
                                                 ],
                                               ),
-                                              width: width * 0.832,
+                                              width: 83.w,
                                               child: TextFormField(
                                                 controller: passwordController,
                                                 obscureText: _isObscure,
@@ -388,19 +394,19 @@ class _FifthScreenState extends State<FifthScreen> {
                                                   hintText:
                                                       'Enter Your Password',
                                                   hintStyle: TextStyle(
-                                                    height: height * 0.0023,
+                                                    height: 0.1.h,
                                                     fontFamily: "Mulish",
                                                     fontWeight: FontWeight.w600,
                                                     color:
                                                         const Color(0xFFA6AEB0),
-                                                    fontSize: width * 0.043,
+                                                    fontSize: 17.2.sp,
                                                   ),
                                                   labelStyle: TextStyle(
                                                     fontFamily: "Mulish",
                                                     fontWeight: FontWeight.w600,
                                                     color:
                                                         const Color(0xFFA6AEB0),
-                                                    fontSize: width * 0.047,
+                                                    fontSize: 17.2.sp,
                                                   ),
                                                   suffixIconColor:
                                                       const Color.fromARGB(
@@ -413,7 +419,7 @@ class _FifthScreenState extends State<FifthScreen> {
                                                   return '';
                                                 },
                                                 style: TextStyle(
-                                                  fontSize: width * 0.045,
+                                                  fontSize: 17.2.sp,
                                                   fontFamily: "Mulish",
                                                   fontWeight: FontWeight.w600,
                                                   color:
@@ -432,23 +438,23 @@ class _FifthScreenState extends State<FifthScreen> {
                                         CrossAxisAlignment.start,
                                     children: [
                                       Container(
-                                        width: width * 0.086,
+                                        width: 8.w,
                                       ),
                                       Container(
                                           margin:
                                               const EdgeInsets.only(top: 22),
-                                          width: width * 0.23,
-                                          height: height * 0.0003,
+                                          width: 23.w,
+                                          height: 0.05.h,
                                           color: const Color(0xff2222222)),
                                       Container(
-                                        width: width * 0.02,
+                                        width: 2.45.w,
                                       ),
                                       GestureDetector(
                                         onTap: () {
-                                          Get.toNamed('line');
+                                          Get.toNamed('/line');
                                         },
                                         child: Container(
-                                          margin: const EdgeInsets.only(top: 7),
+                                          margin: const EdgeInsets.only(top: 6),
                                           child: const Align(
                                             alignment: Alignment.bottomCenter,
                                             child: Text(
@@ -464,13 +470,13 @@ class _FifthScreenState extends State<FifthScreen> {
                                         ),
                                       ),
                                       Container(
-                                        width: width * 0.02,
+                                        width: 2.w,
                                       ),
                                       Container(
                                           margin:
                                               const EdgeInsets.only(top: 22),
-                                          width: width * 0.23,
-                                          height: height * 0.0003,
+                                          width: 23.w,
+                                          height: 0.05.h,
                                           color: const Color(0xff2222222)),
                                     ],
                                   ),
@@ -522,7 +528,8 @@ class _FifthScreenState extends State<FifthScreen> {
                                                                 milliseconds:
                                                                     2000),
                                                         snackPosition:
-                                                            SnackPosition.TOP,
+                                                            SnackPosition
+                                                                .BOTTOM,
                                                         margin: const EdgeInsets
                                                             .all(10),
                                                         borderRadius: 10,

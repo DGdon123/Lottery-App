@@ -18,9 +18,11 @@ import 'package:ecommerce/models/profile.dart';
 import 'package:badges/badges.dart' as badges;
 import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:quickalert/models/quickalert_type.dart';
 import 'package:quickalert/widgets/quickalert_dialog.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'controllers/signup_controller.dart';
 import 'models/accounting.dart';
@@ -118,6 +120,47 @@ class _FourthRouteState extends State<FourthRoute> {
     });
   }
 
+  Future<File?> _getImageFromCamera() async {
+    final pickedFile = await ImagePicker().pickImage(
+      source: ImageSource.camera,
+      imageQuality: 100,
+    );
+    if (pickedFile != null) {
+      final directory = await getApplicationDocumentsDirectory();
+      final imagePath = '${directory.path}/profile_image.png';
+
+      // Save the image file to the directory
+      final savedFile = await File(pickedFile.path).copy(imagePath);
+
+      // Save the image path to SharedPreferences
+      final prefs = await SharedPreferences.getInstance();
+      prefs.setString('imagePath', savedFile.path);
+
+      return savedFile;
+    }
+    return null;
+  }
+
+  Future<File?> _getImageFromGallery() async {
+    final pickedFile = await ImagePicker().getImage(
+      source: ImageSource.gallery,
+    );
+    if (pickedFile != null) {
+      final directory = await getApplicationDocumentsDirectory();
+      final imagePath = '${directory.path}/profile_image.png';
+
+      // Save the image file to the directory
+      final savedFile = await File(pickedFile.path).copy(imagePath);
+
+      // Save the image path to SharedPreferences
+      final prefs = await SharedPreferences.getInstance();
+      prefs.setString('imagePath', savedFile.path);
+
+      return savedFile;
+    }
+    return null;
+  }
+
   Future<void> _pickImage() async {
     showModalBottomSheet(
       context: context,
@@ -130,13 +173,10 @@ class _FourthRouteState extends State<FourthRoute> {
                   leading: const Icon(Icons.camera_alt),
                   title: const Text('Take a photo'),
                   onTap: () async {
-                    final pickedFile = await ImagePicker().pickImage(
-                        source: ImageSource.camera, imageQuality: 100);
-                    if (pickedFile != null) {
-                      // Save the image to disk or use it in your app
-                      _imagePath = File(pickedFile.path);
+                    final imageFile = await _getImageFromCamera();
+                    if (imageFile != null) {
+                      _imagePath = imageFile;
                       signUp.setProfileImagePath(_imagePath!.path);
-                      // Do whatever you want with the image file here
                     }
                     Navigator.pop(context);
                   },
@@ -145,14 +185,10 @@ class _FourthRouteState extends State<FourthRoute> {
                   leading: const Icon(Icons.photo_library),
                   title: const Text('Choose from gallery'),
                   onTap: () async {
-                    final pickedFile = await ImagePicker().getImage(
-                      source: ImageSource.gallery,
-                    );
-                    if (pickedFile != null) {
-                      // Save the image to disk or use it in your app
-                      _imagePath = File(pickedFile.path);
+                    final imageFile = await _getImageFromGallery();
+                    if (imageFile != null) {
+                      _imagePath = imageFile;
                       signUp.setProfileImagePath(_imagePath!.path);
-                      // Do whatever you want with the image file here
                     }
                     Navigator.pop(context);
                   },
@@ -163,6 +199,14 @@ class _FourthRouteState extends State<FourthRoute> {
         );
       },
     );
+
+    // Retrieve saved image path from SharedPreferences and set it to _imagePath
+    final prefs = await SharedPreferences.getInstance();
+    final savedImagePath = prefs.getString('imagePath');
+    if (savedImagePath != null) {
+      _imagePath = File(savedImagePath);
+      signUp.setProfileImagePath(_imagePath!.path);
+    }
   }
 
   @override
@@ -264,28 +308,39 @@ class _FourthRouteState extends State<FourthRoute> {
                                 colorChangeAnimationCurve: Curves.easeInCubic,
                               ),
                               badgeStyle: badges.BadgeStyle(
-                                badgeColor: Colors.grey,
+                                badgeColor: const Color(0xFF6BA444),
                                 padding: const EdgeInsets.all(5),
                                 borderRadius: BorderRadius.circular(4),
                                 borderSide: const BorderSide(
-                                    color: Colors.white, width: 1.8),
+                                    color: Color(0xFFFFFFFF), width: 1.8),
                                 elevation: 0,
                               ),
-                              child: Obx(
-                                () => CircleAvatar(
-                                  backgroundColor: Colors.white,
-                                  backgroundImage: signUp
-                                              .isProficPicPathSet.value ==
-                                          true
-                                      ? FileImage(
-                                              File(signUp.profilePicPath.value))
-                                          as ImageProvider
-                                      : const AssetImage(
-                                          "images/logos.png",
-                                        ),
-                                  radius: 30.sp,
-                                ),
-                              )),
+                              child: Obx(() {
+                                if (_imagePath != null) {
+                                  return CircleAvatar(
+                                    backgroundColor: Colors.white,
+                                    backgroundImage: FileImage(_imagePath!),
+                                    radius: 30.sp,
+                                  );
+                                } else if (signUp.isProficPicPathSet.value ==
+                                    true) {
+                                  return CircleAvatar(
+                                    backgroundColor: Colors.white,
+                                    backgroundImage: FileImage(
+                                        File(signUp.profilePicPath.value)),
+                                    radius: 30.sp,
+                                  );
+                                } else {
+                                  const defaultImagePath =
+                                      'assets/images/profile_image.png';
+                                  return CircleAvatar(
+                                    backgroundColor: Colors.white,
+                                    backgroundImage:
+                                        const AssetImage(defaultImagePath),
+                                    radius: 30.sp,
+                                  );
+                                }
+                              })),
                           SizedBox(
                             height: UiHelper.displayHeight(context) * 0.025,
                           ),

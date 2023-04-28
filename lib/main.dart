@@ -1,6 +1,7 @@
 import 'package:ecommerce/buy.dart';
 
 import 'package:ecommerce/data_class.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:ecommerce/dealerlogin.dart';
 import 'package:ecommerce/forgot.dart';
 import 'package:ecommerce/help.dart';
@@ -40,6 +41,7 @@ class MyApp extends StatelessWidget {
         create: (context) => CartModel(),
         child: Theme(
             data: ThemeData(
+              fontFamily: GoogleFonts.lato().fontFamily,
               useMaterial3: true,
               primarySwatch: Colors.green,
             ),

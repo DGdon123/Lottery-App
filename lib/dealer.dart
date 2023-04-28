@@ -485,8 +485,7 @@ class _FourthScreenState extends State<FourthScreen> {
                                         controller: quantitative,
                                         maxLines: 1,
                                         cursorColor: Colors.black,
-                                        keyboardType:
-                                            TextInputType.visiblePassword,
+                                        keyboardType: TextInputType.number,
                                         decoration: InputDecoration(
                                           filled: true,
                                           fillColor: const Color(0xFF6BA444)
@@ -735,8 +734,7 @@ class _FourthScreenState extends State<FourthScreen> {
                                         controller: grading,
                                         maxLines: 1,
                                         cursorColor: Colors.black,
-                                        keyboardType:
-                                            TextInputType.visiblePassword,
+                                        keyboardType: TextInputType.number,
                                         decoration: InputDecoration(
                                           filled: true,
                                           fillColor: const Color(0xFF6BA444)
